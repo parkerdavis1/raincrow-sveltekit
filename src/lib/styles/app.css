@@ -1,0 +1,147 @@
+:root {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+  
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  a {
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
+  }
+  
+  a:hover {
+    color: #535bf2;
+  }
+  
+  #app {
+    max-width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .ui-container {
+    display: grid;
+    grid-template-columns: [leftapp] 1fr [content-start] 25px 25px [button-start] 25px 25px 25px [center-line] 25px 25px 25px [button-end] 25px 25px [content-end] 1fr [rightapp];
+    column-gap: 5px;
+  }
+  
+  input {
+    background-color: white;
+    font-size: inherit;
+    font-family: inherit;
+    border: black 1px solid;
+    height: 2rem;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  input[type="checkbox"] {
+    height: unset;
+    width: unset;
+    margin-bottom: unset;
+  }
+  
+  button {
+    border: none;
+    cursor: pointer;
+    background: inherit
+  }
+  
+  button:hover {
+    background: inherit
+  }
+  
+  .button {
+    grid-column-start: button-start;
+    grid-column-end: button-end;
+    min-height: 2.5rem;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 1rem;
+    background-color:#409100 ;
+    color: white;
+    grid-column: button-start / button-end;
+  
+  }
+  
+  .button:hover {
+    background-color: rgba(63, 145, 0, 0.9);
+  }
+  
+  .button:disabled {
+    background-color: #A2A2A2;
+    cursor: default;
+  }
+  
+  .copy-button {
+    background-color: #4A96D9;
+    padding: 0 15px;
+  }
+  
+  .copy-button:hover {
+    background-color: rgba(74, 150, 217, 0.9);
+  }
+  
+  .preView-button {
+    margin: 0;
+  }
+  
+  .full-width {
+    grid-column: content-start / content-end;
+  }
+  
+  .top-ui {
+    margin-top: 2rem;
+  }
+  
+  .response-field {
+    background-color: #f0f6fa;
+    margin-top: 1rem;
+  }
+  
+  .weatherDisp {
+    background-color: #f0f6fa;
+    padding: 1rem;
+  }
+  
+  .weather-center {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    min-width: 300px;
+    max-width: 90%;
+    margin: auto;
+  }
+  
+  .menu-exit {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 0;
+    font-size: 2rem;
+    cursor: pointer;
+    display: flex;
+  }
+  
+  .error {
+    border: 1px red solid !important;
+  }
+  
+  .error-message {
+    font-size: small;
+    color: red;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    bottom: 10px;
+  }

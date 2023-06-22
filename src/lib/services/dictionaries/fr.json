@@ -1,0 +1,144 @@
+{
+  "about" : {
+    "app_purpose" : "Cette app web a été créée pour l'obtention facile des données météo pour les listes <a href=\"https://ebird.org/about\" target=\"_blank\">eBird</a>.",
+    "created_by" : "Créé par",
+    "daily_limits" : {
+      "text" : "Pour aider à prévenir les temps d'indisponibilité de RainCrow, chaque utilisateur a une limite de 5 demandes météo toutes les 12 heures.",
+      "title" : "Limite quotidienne"
+    },
+    "email_me" : "Si vous avez des commentaires, suggestions ou bugs, vous pouvez me contacter à l'adresse <a href=\"mailto:parker@birdsmakesound.com\">parker@birdsmakesound.com</a>!",
+    "error_429" : {
+      "text" : "Si vous obtenez une erreur avec le code 429, ça veut dire que j'ai atteint ma limite d'appels gratuits de l'API OpenWeather pour la journée. Je travaille sur une solution pour régler le problème. Désolé des inconvénients, réessayez demain!",
+      "title" : "Vous obtenez une erreur 429?"
+    },
+    "languages" : {
+      "text" : "L'internationalisation (i18n) de l'app ainsi que l'ajout du français a été fait par  <a href=\"https://ebird.org/profile/MjczODA4OQ/\">Marie-Andrée Boucher-Beaulieu</a>. Traduction espagnole par <a href=\"https://ebird.org/profile/OTc2Mjc0/\">JC Paniagua</a>. Si vous voulez contribuer à l'ajout d'autres langues, <a href=\"mailto:parker@birdsmakesound.com\">contactez-moi</a>!",
+      "title" : "Langues"
+    },
+    "options" : {
+      "icon_and_links" : "Pour que les options <strong>Icônes de OpenWeather</strong> et <strong>Lien de génération</strong> s'affichent dans votre liste eBird, vous devez inclure &lt;HTML tags&gt; pour inclure les images et/ou le lien. Vous n'avez pas à le faire vous-même, le code est déjà inclus lorsque vous cliquez sur <span class=\"copy\">Copier dans le presse-papier</span>. Les images et le lien s'afficheront normalement lorsque vous aurez soumis le code dans vos commentaires de liste.",
+      "text" : "Les options vous permettent de sélectionner les informations météorologiques que vous voulez inclure dans votre liste.",
+      "title" : "Options"
+    },
+    "pre_submit" : {
+      "allow_location_access" : "Assurez-vous d'autoriser l'accès à votre emplacement.",
+      "enable_location_service" : "Vérifiez que les services de Localisation sont activés.",
+      "iphone_users" : "Pour les utilisateurs de iPhone, les préférences se trouvent sous Réglages > Confidentialité > Service de localisation > (votre navigateur) > Autoriser.",
+      "text" : "À utiliser avant de soumettre une liste. C'est particulièrement utile pour inclure la météo dans une liste partagée.",
+      "title" : "Pré-soumission",
+      "toggle_location_preference" : "Si cliquer sur <span class=\"highlight\">Localiser</span> ne vous invite pas à autoriser l'accès à la localisation, essayez de désactiver puis réactiver la locatisation dans vos préférences.",
+      "troubleshoot_title" : "Le bouton <span class=\"highlight\">Localiser</span> ne fonctionne pas?"
+    },
+    "submitted" : {
+      "text" : "À utiliser pour les listes ayant déjà été soumises dans eBird. Il suffit d'entrer l'identifiant de la liste (ou l'URL entière) et cliquer sur <span class=\"highlight\">Obtenir la météo</span>.",
+      "title" : "Liste soumise"
+    },
+    "weather_data" : {
+      "limitations" : "Il y a des limites à la précision de toute API météo. Si vous recherchez des données météorologiques pour un emplacement proche d'une station météo, le résultat devrait être optimal. Si l'emplacement est une région éloignée avec un microclimat unique (canyons profonds, sommets montagneux, océan, etc.), les résultats auront plus de marge d'erreur. À utiliser prudemment!",
+      "provided_by" : "L'information météorologique est fournie par <a href=\"https://openweathermap.org/\" target=\"_blank\">OpenWeather</a>.",
+      "range_format" : "Les données météo sont obtenues pour le début et la fin d'une liste et automatiquement affichées comme un intervalle.",
+      "title" : "Données météo"
+    },
+    "welcome" : "Bienvenue dans RainCrow"
+  },
+  "clipboard" : {
+    "browser_error" : "Votre navigateur ne supporte pas Clipboard API",
+    "copied" : "Copié!",
+    "copy" : "Copier dans le presse-papier",
+    "error" : "Erreur!"
+  },
+  "daily_request" : {
+    "error" : "Vous avez atteint votre limite de demandes météo pour la journée.",
+    "remaining" : "Demandes quotidiennes restantes:",
+    "try_again" : "Réessayer"
+  },
+  "global_ui" : {
+    "close" : "Fermer",
+    "done" : "Terminé",
+    "loading" : "Chargement..."
+  },
+  "nav" : {
+    "about" : "À propos",
+    "options" : "Options",
+    "pre_submit" : "Pré-soumission",
+    "submitted" : "Liste soumise"
+  },
+  "options" : {
+    "cloud_cover" : "Couverture nuageuse",
+    "conditions" : "Conditions",
+    "emoji" : "Émoji",
+    "humidity" : "Humidité",
+    "include_link" : "Inclure le lien",
+    "language" : "Langue",
+    "pressure" : "Pression",
+    "sunrise" : "Lever du soleil",
+    "sunset" : "Coucher du soleil",
+    "temperature" : "Température",
+    "weather_icon" : "Icônes météo",
+    "wind_direction" : "Direction du vent",
+    "windspeed" : "Vitesse du vent",
+    "windspeed_beaufort_scale" : "Échelle de Beaufort",
+    "windspeed_description" : "Description"
+  },
+  "pre_submit" : {
+    "coordinates_error" : "Veuillez entrer des coordonnées décimales valides.",
+    "date" : "Date",
+    "date_error" : "Veuillez entrer une date valide au format: AAAA-MM-JJ",
+    "duration" : "Durée",
+    "duration_error" : "Veuillez entrer un nombre de minutes plus grand ou égal à 0",
+    "get_weather" : "Obtenir la météo",
+    "latitude" : "Latitude",
+    "locate" : "Localiser",
+    "locate_error" : "Vous devez autoriser l'accès à la localisation (ERROR({errorCode}): {errorMessage})",
+    "location" : "Localisation",
+    "location_service_error" : "Les services de localisation doivent être activés pour utiliser le bouton \"Localiser\".",
+    "longitude" : "Longitude",
+    "minutes" : "minutes",
+    "start_time" : "Heure de début",
+    "start_time_error" : "Veuillez entrer une heure de début valide au format 24h: HH:MM"
+  },
+  "submitted" : {
+    "checklist_id" : "Identifiant de liste",
+    "get_weather" : "Obtenir la météo",
+    "help" : "Entrer un identifiant de liste eBird and cliquer sur \"Obtenir la météo\"",
+    "historical_checklist_error" : "Les listes de type historique ne sont pas supportées.",
+    "invalid_checklist_id" : "Veuillez entrer un identifiant de liste valide",
+    "too_old_checklist_error" : "Les dates avant le 1er janvier 1979 ne sont pas supportées par OpenWeather API."
+  },
+  "weather" : {
+    "cloud_cover" : "Couverture nuageuse",
+    "direction" : {
+      "east" : "E",
+      "north" : "N",
+      "north_east" : "NE",
+      "north_west" : "NO",
+      "south" : "S",
+      "south_east" : "SE",
+      "south_west" : "SO",
+      "west" : "O"
+    },
+    "generated_by" : "Météo générée par <a href=\"https://raincrow.netlify.app/\" target=\"_blank\">RainCrow</a>",
+    "humidity" : "Humidité",
+    "pressure" : "Pression",
+    "sunrise" : "Lever du soleil",
+    "sunset" : "Coucher du soleil",
+    "temperature" : "Température",
+    "wind" : "Vent",
+    "wind_description" : {
+      "calm" : "calme",
+      "fresh_breeze" : "bonne brise",
+      "gale" : "coup de vent",
+      "gentle_breeze" : "petite brise",
+      "hurricane" : "vent d'ouragan",
+      "light_breeze" : "légère brise",
+      "moderate_breeze" : "jolie brise",
+      "mostly_calm" : "très légères brises",
+      "near_gale" : "grand frais",
+      "severe_gale" : "fort coup de vent",
+      "storm" : "tempête",
+      "strong_breeze" : "vent frais",
+      "violent_storm" : "violente tempête"
+    },
+    "wind_direction" : "Direction du vent"
+  }
+}

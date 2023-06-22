@@ -1,0 +1,144 @@
+{
+  "about" : {
+    "app_purpose" : "This web app was created for the quick retrieval of historical weather observations for <a href=\"https://ebird.org/about\" target=\"_blank\">eBird</a> checklists.",
+    "created_by" : "Created by",
+    "daily_limits" : {
+      "text" : "To help prevent RainCrow downtime there is a limit of 5 weather requests per user every 12 hours.",
+      "title" : "Daily Limits"
+    },
+    "email_me" : "If you have any comments, suggestions, bugs, feel free to email me at <a href=\"mailto:parker@birdsmakesound.com\">parker@birdsmakesound.com</a>!",
+    "error_429" : {
+      "text" : "If you get a error with code 429, it means that I've reached my limit of free OpenWeather API calls for the day. I'm working on a solution for this. Sorry, try again tomorrow!",
+      "title" : "429 Error?"
+    },
+    "languages" : {
+      "text" : "Internationalization (i18n) and French translation added by <a href=\"https://ebird.org/profile/MjczODA4OQ/\">Marie-Andrée Boucher-Beaulieu</a>. Spanish translation by <a href=\"https://ebird.org/profile/OTc2Mjc0/\">JC Paniagua</a>. If you would like to help add other languages please <a href=\"mailto:parker@birdsmakesound.com\">reach out</a>!",
+      "title" : "Languages"
+    },
+    "options" : {
+      "icon_and_links" : "In order for <strong>OpenWeather Icons</strong> and <strong>Include Link</strong> options to show up on your eBird checklist, you must include &lt;HTML tags&gt; to embed the images or create the link. You don't need to worry about doing this yourself, the code is included when you click <span class=\"copy\">Copy to Clipboard</span>. The images and link will display normally once you submit the copied code to your checklist comments.",
+      "text" : "The options menu allows you to select the weather data you want to include.",
+      "title" : "Options"
+    },
+    "pre_submit" : {
+      "allow_location_access" : "Make sure you allow access to your location.",
+      "enable_location_service" : "Check that location services are enabled.",
+      "iphone_users" : "For iPhone the setting is found under Settings > Privacy > Location Services > (Browser of Choice) > Allow Location Access",
+      "text" : "Use before a checklist is submitted. This is especially useful for including weather in shared checklists.",
+      "title" : "Pre-Submit",
+      "toggle_location_preference" : "If clicking <span class=\"highlight\">Locate</span> does not prompt you to allow location access, try toggling the location preference off then on again.",
+      "troubleshoot_title" : "<span class=\"highlight\">Locate</span> not working?"
+    },
+    "submitted" : {
+      "text" : "Use for checklists that have already been submitted to eBird. Just enter the Checklist ID (or the entire URL) and click <span class=\"highlight\">Get Weather</span>.",
+      "title" : "Submitted"
+    },
+    "weather_data" : {
+      "limitations" : "There are limitations to the accuracy of any weather API. If you are gathering weather data for a location that is near a weather station it should work just fine. If the location is a remote area with unique microclimate (deep canyons, mountain peaks, open ocean etc.) results will have more room for error. Use at your own discretion!",
+      "provided_by" : "Weather data provided by <a href=\"https://openweathermap.org/\" target=\"_blank\">OpenWeather</a>.",
+      "range_format" : "Weather data is gathered for both the start and end times of a checklist and automatically displayed as a range.",
+      "title" : "Weather Data"
+    },
+    "welcome" : "Welcome to RainCrow"
+  },
+  "clipboard" : {
+    "browser_error" : "Browser do not support Clipboard API",
+    "copied" : "Copied!",
+    "copy" : "Copy to clipboard",
+    "error" : "Error!"
+  },
+  "daily_request" : {
+    "error" : "You have reached your limit of weather requests for the day.",
+    "remaining" : "Remaining daily requests:",
+    "try_again" : "Try again"
+  },
+  "global_ui" : {
+    "close" : "Close",
+    "done" : "Done",
+    "loading" : "Loading..."
+  },
+  "nav" : {
+    "about" : "About",
+    "options" : "Options",
+    "pre_submit" : "Pre-Submit",
+    "submitted" : "Submitted"
+  },
+  "options" : {
+    "cloud_cover" : "Cloud Cover",
+    "conditions" : "Conditions",
+    "emoji" : "Emoji",
+    "humidity" : "Humidity",
+    "include_link" : "Include Link",
+    "language" : "Language",
+    "pressure" : "Pressure",
+    "sunrise" : "Sunrise",
+    "sunset" : "Sunset",
+    "temperature" : "Temperature",
+    "weather_icon" : "Weather Icons",
+    "wind_direction" : "Wind Direction",
+    "windspeed" : "Windspeed",
+    "windspeed_beaufort_scale" : "Beaufort Scale",
+    "windspeed_description" : "Description"
+  },
+  "pre_submit" : {
+    "coordinates_error" : "Please enter valid decimal degree coordinates.",
+    "date" : "Date",
+    "date_error" : "Enter valid date in format: YYYY-MM-DD",
+    "duration" : "Duration",
+    "duration_error" : "Enter valid number of minutes greater than or equal to 0",
+    "get_weather" : "Get Weather",
+    "latitude" : "Latitude",
+    "locate" : "Locate",
+    "locate_error" : "Allow location access to use (ERROR({errorCode}): {errorMessage})",
+    "location" : "Location",
+    "location_service_error" : "Location services must be enabled to use \"Locate\" button.",
+    "longitude" : "Longitude",
+    "minutes" : "minutes",
+    "start_time" : "Start Time",
+    "start_time_error" : "Enter valid start time in 24hr format: HH:MM"
+  },
+  "submitted" : {
+    "checklist_id" : "Checklist ID",
+    "get_weather" : "Get Weather",
+    "help" : "Enter an eBird Checklist ID and click \"Get Weather\"",
+    "historical_checklist_error" : "Historical checklists not supported. Need valid time to get weather data.",
+    "invalid_checklist_id" : "Please enter a valid Checklist ID",
+    "too_old_checklist_error" : "Dates before Jan 1, 1979 not supported by OpenWeather API."
+  },
+  "weather" : {
+    "cloud_cover" : "Cloud Cover",
+    "direction" : {
+      "east" : "E",
+      "north" : "N",
+      "north_east" : "NE",
+      "north_west" : "NW",
+      "south" : "S",
+      "south_east" : "SE",
+      "south_west" : "SW",
+      "west" : "W"
+    },
+    "generated_by" : "Weather generated by <a href=\"https://raincrow.netlify.app/\" target=\"_blank\">RainCrow</a>",
+    "humidity" : "Humidity",
+    "pressure" : "Pressure",
+    "sunrise" : "Sunrise",
+    "sunset" : "Sunset",
+    "temperature" : "Temperature",
+    "wind" : "Wind",
+    "wind_description" : {
+      "calm" : "calm",
+      "fresh_breeze" : "fresh breeze",
+      "gale" : "gale",
+      "gentle_breeze" : "gentle breeze",
+      "hurricane" : "hurricane",
+      "light_breeze" : "light breeze",
+      "moderate_breeze" : "moderate breeze",
+      "mostly_calm" : "mostly calm",
+      "near_gale" : "near gale",
+      "severe_gale" : "severe gale",
+      "storm" : "storm",
+      "strong_breeze" : "strong breeze",
+      "violent_storm" : "violent storm"
+    },
+    "wind_direction" : "Wind Direction"
+  }
+}
