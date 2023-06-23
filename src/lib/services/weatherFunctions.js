@@ -8,7 +8,8 @@ import customParseFormat from 'dayjs/plugin/customParseFormat.js';
 dayjs.extend(customParseFormat);
 
 // API keys
-// import { openWeather } from './keys.json';
+// import { openWeather } from '$lib/keys.json';
+import { OPENWEATHER_KEY } from '$env/static/public';
 
 // Helpers
 import { capitalizeFirst, dataRange } from '$lib/services/helpers';
@@ -444,8 +445,8 @@ function extractChecklistId(checklistId) {
 export async function queryOpenWeather(unixTime, lat, lon, lang) {
 	//submit OpenWeather query at time and location
 	const baseUrl = 'https://api.openweathermap.org/data/3.0/onecall/timemachine';
-	const queries = `?lat=${lat}&lon=${lon}&lang=${lang}&dt=${unixTime}&appid=${openWeather}&units=imperial`;
-	// const queries = `?lat=${lat}&lon=${lon}&dt=error&appid=${openWeather}&units=imperial`; // trigger errors for debug
+	const queries = `?lat=${lat}&lon=${lon}&lang=${lang}&dt=${unixTime}&appid=${OPENWEATHER_KEY}&units=imperial`;
+	// const queries = `?lat=${lat}&lon=${lon}&dt=error&appid=${OPENWEATHER_KEY}&units=imperial`; // trigger errors for debug
 	try {
 		const response = await fetch(baseUrl + queries);
 		if (response.ok) {

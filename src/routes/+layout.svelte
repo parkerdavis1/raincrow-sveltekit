@@ -5,7 +5,6 @@
 
 <svelte:head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="icon" type="image/x-icon" href="/ebird-weather.ico" />
 
 	<title>RainCrow | eBird weather</title>
 	<meta name="description" content="Weather for any eBird checklist" />

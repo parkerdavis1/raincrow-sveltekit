@@ -10,7 +10,7 @@
 
 <div class="full-width">
 	{#if !$dailyCountError}
-		<div class="weather-center weatherDisp">
+		<div class="weather-center weatherDisp" data-testid="weatherResultsPane">
 			<div>
 				{#if $postStatus === 'init'}
 					<p>{$_('submitted.help')}</p>
