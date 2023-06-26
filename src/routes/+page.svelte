@@ -1,4 +1,6 @@
 <script>
+	export let form;
+
 	// Components
 	import PostView from '$lib/components/PostView.svelte';
 	import PreView from '$lib/components/PreView.svelte';
@@ -55,6 +57,27 @@
 {#if $optionsView}
 	<OptionsView />
 {/if}
+
+<!-- TESTING MOCK API -->
+<div>
+	<h1>TEST AREA</h1>
+	{#if form?.checklistInfo}
+		<h2>ChecklistInfo</h2>
+		<pre>{JSON.stringify(form.checklistInfo, null, 4)}</pre>
+	{/if}
+	{#if form?.location}
+		<h2>Location</h2>
+		<pre>{JSON.stringify(form.location, null, 4)}</pre>
+	{/if}
+	{#if form?.weatherResults}
+		<h2>Weather Results</h2>
+		<pre>{JSON.stringify(form.weatherResults, null, 4)}</pre>
+	{/if}
+	{#if form?.language}
+		<h2>Language</h2>
+		<pre>{JSON.stringify(form.language, null, 4)}</pre>
+	{/if}
+</div>
 
 <!-- --------STYLE-------- -->
 <style>

@@ -9,10 +9,17 @@ dayjs.extend(customParseFormat);
 
 // API keys
 // import { openWeather } from '$lib/keys.json';
-import { OPENWEATHER_KEY } from '$env/static/public';
+import { PUBLIC_OPENWEATHER_KEY } from '$env/static/public';
 
 // Helpers
 import { capitalizeFirst, dataRange } from '$lib/services/helpers';
+import {
+	convertToCelsius,
+	mphToMs,
+	mphToKmh,
+	mphToBeaufort,
+	mphToDescription
+} from './conversions';
 import { _ } from '$lib/services/i18n';
 import { get } from 'svelte/store';
 
@@ -363,7 +370,7 @@ export async function getTimezoneOffset(times, locationObj) {
 	}
 }
 
-export async function getChecklistInfo(checklistId) {
+export async function getChecklistInfo({ checklistId, fetch }) {
 	console.log('-------New Request-------');
 	const myHeaders = new Headers();
 	myHeaders.append('X-eBirdApiToken', 'r0h8p3bh6k3v');
@@ -378,7 +385,17 @@ export async function getChecklistInfo(checklistId) {
 	const checklistURL = 'https://api.ebird.org/v2/product/checklist/view/' + realChecklistId;
 
 	// reset for each call
-	let checklistInfo = {};
+	let checklistInfo = {
+		checklistId: null,
+		locationId: null,
+		startTime: null,
+		obsTimeValid: null,
+		durationHrs: null,
+		endTime: null,
+		lat: null,
+		lon: null,
+		locationName: null
+	};
 	let times = {
 		offset: 0,
 		start: {
@@ -429,7 +446,8 @@ export async function getChecklistInfo(checklistId) {
 				console.log(jsonResponse2);
 				console.log('checklistInfo object: ');
 				console.log(checklistInfo);
-				return [checklistInfo, times];
+				return { checklistInfo, times };
+				// return [checklistInfo, times];
 			}
 		}
 	} catch (error) {
@@ -445,7 +463,7 @@ function extractChecklistId(checklistId) {
 export async function queryOpenWeather(unixTime, lat, lon, lang) {
 	//submit OpenWeather query at time and location
 	const baseUrl = 'https://api.openweathermap.org/data/3.0/onecall/timemachine';
-	const queries = `?lat=${lat}&lon=${lon}&lang=${lang}&dt=${unixTime}&appid=${OPENWEATHER_KEY}&units=imperial`;
+	const queries = `?lat=${lat}&lon=${lon}&lang=${lang}&dt=${unixTime}&appid=${PUBLIC_OPENWEATHER_KEY}&units=imperial`;
 	// const queries = `?lat=${lat}&lon=${lon}&dt=error&appid=${OPENWEATHER_KEY}&units=imperial`; // trigger errors for debug
 	try {
 		const response = await fetch(baseUrl + queries);
@@ -457,75 +475,5 @@ export async function queryOpenWeather(unixTime, lat, lon, lang) {
 		} else throw new Error(`${response.statusText} (code: ${response.status})`);
 	} catch (error) {
 		throw error;
-	}
-}
-
-function convertToCelsius(tempF) {
-	return (5 / 9) * (tempF - 32);
-}
-function mphToMs(mph) {
-	// -> KM -> M -> MIN -> SEC
-	return (mph * 1.6093 * 1000) / 60 / 60;
-}
-function mphToKmh(mph) {
-	// -> KM
-	return mph * 1.6093;
-}
-function mphToBeaufort(mph) {
-	if (mph >= 0 && mph <= 1) {
-		return 0;
-	} else if (mph > 1 && mph <= 3) {
-		return 1;
-	} else if (mph > 3 && mph <= 7) {
-		return 2;
-	} else if (mph > 7 && mph <= 12) {
-		return 3;
-	} else if (mph > 12 && mph <= 18) {
-		return 4;
-	} else if (mph > 18 && mph <= 24) {
-		return 5;
-	} else if (mph > 24 && mph <= 31) {
-		return 6;
-	} else if (mph > 31 && mph <= 38) {
-		return 7;
-	} else if (mph > 38 && mph <= 46) {
-		return 8;
-	} else if (mph > 46 && mph <= 54) {
-		return 9;
-	} else if (mph > 54 && mph <= 63) {
-		return 10;
-	} else if (mph > 63 && mph <= 72) {
-		return 11;
-	} else if (mph > 72 && mph <= 83) {
-		return 12;
-	}
-}
-function mphToDescription(mph) {
-	if (mph >= 0 && mph <= 1) {
-		return get(_)('weather.wind_description.calm');
-	} else if (mph > 1 && mph <= 3) {
-		return get(_)('weather.wind_description.mostly_calm');
-	} else if (mph > 3 && mph <= 7) {
-		return get(_)('weather.wind_description.light_breeze');
-	} else if (mph > 7 && mph <= 12) {
-		return get(_)('weather.wind_description.gentle_breeze');
-	} else if (mph > 12 && mph <= 18) {
-		return get(_)('weather.wind_description.moderate_breeze');
-	} else if (mph > 18 && mph <= 24) {
-		return get(_)('weather.wind_description.fresh_breeze');
-	} else if (mph > 24 && mph <= 31) {
-		return get(_)('weather.wind_description.strong_breeze');
-	} else if (mph > 31 && mph <= 38) {
-		return get(_)('weather.wind_description.near_gale');
-	} else if (mph > 38 && mph <= 46) {
-		return get(_)('weather.wind_description.gale');
-	} else if (mph > 46 && mph <= 54) {
-		return get(_)('weather.wind_description.severe_gale');
-	} else if (mph > 54 && mph <= 63) {
-		return get(_)('weather.wind_description.storm');
-	} else if (mph > 63 && mph <= 72) {
-		return get(_)('weather.wind_description.violent_storm');
-	} else if (mph > 72 && mph <= 83) {
-		return get(_)('weather.wind_description.hurricane');
 	}
 }

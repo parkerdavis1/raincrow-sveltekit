@@ -136,11 +136,7 @@
 
 <FormDuration />
 
-<button
-	class="preView-button button"
-	type="submit"
-	on:click={handleGetWeather}
-	disabled={!formIsValid || $dailyCountError}
+<button class="preView-button button" type="submit" disabled={!formIsValid || $dailyCountError}
 	>{$_('pre_submit.get_weather')}
 </button>
 

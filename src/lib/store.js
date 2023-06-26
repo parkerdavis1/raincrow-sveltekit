@@ -1,4 +1,4 @@
-import { writable, derived, get, readable } from 'svelte/store';
+import { writable, derived, get } from 'svelte/store';
 import { _ } from './services/i18n';
 import { setWithExpiry, getWithExpiry } from './services/limiter';
 
@@ -19,6 +19,7 @@ let defaultOptions = {
 	iconType: 'emoji',
 	attr: true
 };
+
 // Get user option preferences from local store, if no local store use default options
 export const options = writable(
 	JSON.parse(localStorage.getItem('storedOptions')) || defaultOptions
@@ -195,6 +196,7 @@ export let preWeatherCopy = derived(
 export let postStatus = writable('init');
 export let postErrorText = writable('');
 export let postChecklistInfo = writable({});
+export let postTimes = writable({});
 
 export let preStatus = writable('init');
 export let preFormInput = writable({

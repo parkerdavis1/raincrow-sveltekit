@@ -1,6 +1,6 @@
 <script>
+	import { enhance } from '$app/forms';
 	import { _ } from '$lib/services/i18n';
-	import dayjs from 'dayjs';
 	import { get } from 'svelte/store';
 	import {
 		postStatus,
@@ -37,28 +37,9 @@
 		console.log('$dailyCount: ', $dailyCount);
 	}
 
-	function checkEbirdErrors(checklistInfo, times) {
-		// eBird Error Handling
-		if (checklistInfo.ok === false) {
-			$postErrorText = $_('invalid_checklist_id');
-			$postStatus = 'error';
-			return true;
-		}
-
-		// Historical Checklists Error
-		if (checklistInfo.obsTimeValid === false) {
-			$postStatus = 'error';
-			$postErrorText = $_('submitted.historical_checklist_error');
-			return true;
-		}
-		if (dayjs(times.start.localTime).get('year') < 1979) {
-			$postStatus = 'error';
-			$postErrorText = $_('submitted.too_old_checklist_error');
-			return true;
-		}
-	}
-
 	async function getWeatherHandler() {
+		if (!isChecklistId || $dailyCountError) return; // if not valid checklist, or exceeded daily count limit, don't call any APIs
+
 		// Weather Variables to be parsed into results store
 		let weatherResults = {
 			start: null,
@@ -77,9 +58,9 @@
 		};
 		$postChecklistInfo = {};
 
-		if (!isChecklistId || $dailyCountError) return; // if not valid checklist, or exceeded daily count limit, don't call any APIs
+		$postStatus = 'loading';
 
-		postStatus.set('loading');
+		// SERVER SIDE
 
 		[$postChecklistInfo, times] = await getChecklistInfo(checklistId); // get checklistInfo and times from eBird
 
@@ -104,34 +85,41 @@
 		incrementDailyCount();
 	}
 
-	const inputKeyup = (event) => {
-		if (event.key === 'Enter' && isChecklistId) {
-			getWeatherHandler();
-		}
-	};
+	// const inputKeyup = (event) => {
+	// 	if (event.key === 'Enter' && isChecklistId) {
+	// 		getWeatherHandler();
+	// 	}
+	// };
 </script>
 
-<div id="checklistInputForm" class="full-width top-ui">
-	<label for="checklistID">{$_('submitted.checklist_id')}:</label><br />
+<form action="?/postGetWeather" method="POST" use:enhance class="full-width top-ui">
+	<!-- <div class="full-width top-ui"> -->
+	<label for="checklistId">{$_('submitted.checklist_id')}:</label><br />
 	<input
 		type="text"
-		name="checklistID"
-		id="checklistID"
+		name="checklistId"
+		id="checklistId"
 		class="full-width"
+		autocomplete="off"
 		bind:value={checklistId}
-		on:keyup={(event) => inputKeyup(event)}
 		on:focus={() => (checklistId = '')}
 		class:error={!isChecklistId && checklistId.length > 0}
 	/>
-</div>
-<button
-	id="submitButton"
-	on:click={getWeatherHandler}
-	disabled={!isChecklistId || $dailyCountError}
-	class="button"
->
-	{$_('submitted.get_weather')}
-</button>
+	<!-- </div> -->
+	<button
+		type="submit"
+		id="submitButton"
+		disabled={!isChecklistId || $dailyCountError}
+		class="button"
+	>
+		{$_('submitted.get_weather')}
+	</button>
+</form>
+
+<!-- 
+	INPUT
+	on:keyup={(event) => inputKeyup(event)} 
+-->
 
 <style>
 	.error {
