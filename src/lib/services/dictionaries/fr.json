@@ -99,6 +99,7 @@
   },
   "submitted" : {
     "checklist_id" : "Identifiant de liste",
+    "general_checklist_error" : "Erreur lors de l'obtention des données de la liste",
     "get_weather" : "Obtenir la météo",
     "help" : "Entrer un identifiant de liste eBird and cliquer sur \"Obtenir la météo\"",
     "historical_checklist_error" : "Les listes de type historique ne sont pas supportées.",

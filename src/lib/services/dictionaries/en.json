@@ -99,6 +99,7 @@
   },
   "submitted" : {
     "checklist_id" : "Checklist ID",
+    "general_checklist_error" : "Error fetching checklist data",
     "get_weather" : "Get Weather",
     "help" : "Enter an eBird Checklist ID and click \"Get Weather\"",
     "historical_checklist_error" : "Historical checklists not supported. Need valid time to get weather data.",

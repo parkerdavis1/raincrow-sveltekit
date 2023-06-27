@@ -1,8 +1,8 @@
 import dayjs from '$lib/services/dayjsExtended';
 import { EBIRD_KEY } from '$env/static/private';
 
-export async function getChecklistInfo({ checklistId, fetch }) {
-	// structure of returned objects
+export async function getChecklistInfo(checklistId, fetch) {
+	// Structure of returned objects
 	let checklistInfo = {
 		checklistId: null,
 		locationId: null,
@@ -44,8 +44,7 @@ export async function getChecklistInfo({ checklistId, fetch }) {
 	try {
 		const response = await fetch(checklistURL, requestOptions);
 		if (!response.ok) {
-			console.log(response);
-			throw response;
+			throw { error: 'submitted.general_checklist_error' };
 		}
 		if (response.ok) {
 			const jsonResponse = await response.json();
@@ -53,7 +52,14 @@ export async function getChecklistInfo({ checklistId, fetch }) {
 			checklistInfo.locationId = jsonResponse.locId;
 			checklistInfo.startTime = jsonResponse.obsDt;
 			dayjsTimes.start.localTime = dayjs(checklistInfo.startTime, 'YYYY-MM-DD HH:mm');
+			if (dayjs(dayjsTimes.start.localTime).get('year') < 1979) {
+				throw { error: 'submitted.too_old_checklist_error' };
+			}
 			checklistInfo.obsTimeValid = jsonResponse.obsTimeValid;
+			if (checklistInfo.obsTimeValid === false) {
+				console.log('response.status', response.status);
+				throw { error: 'submitted.historical_checklist_error' };
+			}
 			if (jsonResponse.durationHrs) {
 				checklistInfo.durationHrs = jsonResponse.durationHrs;
 				checklistInfo.endTime = calculateEndTime(
@@ -67,6 +73,9 @@ export async function getChecklistInfo({ checklistId, fetch }) {
 			const coordUrl = 'https://api.ebird.org/v2/ref/region/info/' + checklistInfo.locationId;
 
 			const response2 = await fetch(coordUrl, requestOptions);
+			if (!response2.ok) {
+				throw { error: 'submitted.general_checklist_error' };
+			}
 			if (response2.ok) {
 				const jsonResponse2 = await response2.json();
 				location.lat = (jsonResponse2.bounds.maxY + jsonResponse2.bounds.minY) / 2;
@@ -77,8 +86,8 @@ export async function getChecklistInfo({ checklistId, fetch }) {
 			}
 		}
 	} catch (error) {
-		console.log(error);
-		return { error };
+		console.log('-----ERROR (getChecklistInfo)-----');
+		return error;
 	}
 }
 

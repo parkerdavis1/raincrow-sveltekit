@@ -2,20 +2,31 @@ import { get } from 'svelte/store';
 import { _ } from '$lib/services/i18n';
 
 export function convertToCelsius(tempF) {
+	if (typeof tempF !== 'number') throw Error('Input must be a number');
+
 	return (5 / 9) * (tempF - 32);
 }
 
 export function mphToMs(mph) {
+	if (typeof mph !== 'number') throw Error('Input must be a number');
+	if (mph < 0) throw Error('Number must be non-negative');
+
 	// -> KM -> M -> MIN -> SEC
 	return (mph * 1.6093 * 1000) / 60 / 60;
 }
 
 export function mphToKmh(mph) {
+	if (typeof mph !== 'number') throw Error('Input must be a number');
+	if (mph < 0) throw Error('Number must be non-negative');
+
 	// -> KM
 	return mph * 1.6093;
 }
 
 export function mphToBeaufort(mph) {
+	if (typeof mph !== 'number') throw Error('Input must be a number');
+	if (mph < 0) throw Error('Number must be non-negative');
+
 	if (mph >= 0 && mph <= 1) {
 		return 0;
 	} else if (mph > 1 && mph <= 3) {
@@ -46,6 +57,9 @@ export function mphToBeaufort(mph) {
 }
 
 export function mphToDescription(mph) {
+	if (typeof mph !== 'number') throw Error('Input must be a number');
+	if (mph < 0) throw Error('Number must be non-negative');
+
 	if (mph >= 0 && mph <= 1) {
 		return get(_)('weather.wind_description.calm');
 	} else if (mph > 1 && mph <= 3) {
@@ -74,3 +88,13 @@ export function mphToDescription(mph) {
 		return get(_)('weather.wind_description.hurricane');
 	}
 }
+
+const conversions = {
+	convertToCelsius,
+	mphToMs,
+	mphToKmh,
+	mphToBeaufort,
+	mphToDescription
+};
+
+export default conversions;

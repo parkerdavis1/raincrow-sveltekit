@@ -99,6 +99,7 @@
   },
   "submitted" : {
     "checklist_id" : "Identificador de la lista",
+    "general_checklist_error" : "Error al obtener los datos de la lista",
     "get_weather" : "Datos meteorológicos",
     "help" : "Ponga el identificador de una lista de eBird y haga clic en \"Datos meteorológicos\"",
     "historical_checklist_error" : "Las llamadas \"listas históricas\" no son válidas. Se precisa una hora concreta para poder obtener datos meteorológicos correctos.",

@@ -1,6 +1,7 @@
 import { writable, derived, get } from 'svelte/store';
 import { _ } from './services/i18n';
 import { setWithExpiry, getWithExpiry } from './services/limiter';
+// import { browser } from '$app/environment';
 
 let defaultOptions = {
 	conditions: true,
@@ -29,10 +30,11 @@ options.subscribe((value) => (localStorage.storedOptions = JSON.stringify(value)
 
 // Language preference
 let defaultLanguage = 'en';
-export const language = writable(
-	JSON.parse(localStorage.getItem('storedLanguage')) || defaultLanguage
-);
-language.subscribe((value) => (localStorage.storedLanguage = JSON.stringify(value)));
+// export const language = writable(
+// 	JSON.parse(localStorage.getItem('storedLanguage')) || defaultLanguage
+// );
+// language.subscribe((value) => (localStorage.storedLanguage = JSON.stringify(value)));
+export const language = writable(defaultLanguage);
 
 // Daily request count
 export const dailyCount = writable(getWithExpiry('dailyCount') || '0');
@@ -199,6 +201,7 @@ export let postChecklistInfo = writable({});
 export let postTimes = writable({});
 
 export let preStatus = writable('init');
+export let preErrorText = writable('');
 export let preFormInput = writable({
 	latlon: '',
 	date: '',
@@ -213,8 +216,6 @@ export let preFormErrors = writable({
 	startTime: false,
 	duration: false
 });
-
-export let preErrorText = writable('');
 
 export let aboutView = writable(false);
 export let optionsView = writable(false);

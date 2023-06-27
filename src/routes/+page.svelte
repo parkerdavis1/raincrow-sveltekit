@@ -1,5 +1,8 @@
 <script>
 	export let form;
+	export let data;
+
+	import { browser } from '$app/environment';
 
 	// Components
 	import PostView from '$lib/components/PostView.svelte';
@@ -11,10 +14,25 @@
 	import OptionsView from '$lib/components/OptionsView.svelte';
 
 	// Helpers
+	import { locale } from 'svelte-i18n';
 	import { _, setupI18n } from '$lib/services/i18n';
+	import { parseWeather } from '$lib/services/weather/parseWeather';
 
 	// Stores
-	import { aboutView, optionsView, language, dailyCountError, viewingPost } from '$lib/store.js';
+	import {
+		aboutView,
+		optionsView,
+		language,
+		dailyCountError,
+		viewingPost,
+		postStatus,
+		postErrorText,
+		postParsedWeather,
+		postChecklistInfo,
+		preStatus,
+		preErrorText,
+		preParsedWeather
+	} from '$lib/store.js';
 
 	// Other Functions
 	const menuEsc = (event) => {
@@ -24,7 +42,36 @@
 		}
 	};
 
-	$: setupI18n({ withLocale: $language });
+	// Initialize language store with cookie data from load function
+	$language = data.lang;
+	// Update setupI18n when language changes
+	$: {
+		setupI18n({ withLocale: $language });
+		if (browser) {
+			document.cookie = `lang=${$language}; path=/; samesite=strict`;
+		}
+	}
+
+	$: {
+		if (form?.postWeather) {
+			$postParsedWeather = parseWeather(form.postWeather);
+			$postChecklistInfo = form.postWeather.checklistInfo;
+			$postStatus = 'show';
+		}
+	}
+
+	// Error handling
+	$: {
+		if (form?.error) {
+			if (viewingPost) {
+				$postStatus = 'error';
+				$postErrorText = $_(form.error);
+			} else {
+				$preStatus = 'error';
+				$preErrorText = $_(form.error);
+			}
+		}
+	}
 </script>
 
 <!-- --------START OF APP-------- -->
@@ -45,6 +92,15 @@
 	{/if}
 
 	<Footer />
+
+	<!-- TESTING MOCK API -->
+	<!-- {#if form?.postWeather}
+		<div>
+			<h1>TEST AREA</h1>
+			<h2>Post Weather</h2>
+			<pre>{JSON.stringify(form.postWeather, null, 4)}</pre>
+		</div>
+	{/if} -->
 </div>
 
 <!-- --------ABOUT MENU-------- -->
@@ -57,27 +113,6 @@
 {#if $optionsView}
 	<OptionsView />
 {/if}
-
-<!-- TESTING MOCK API -->
-<div>
-	<h1>TEST AREA</h1>
-	{#if form?.checklistInfo}
-		<h2>ChecklistInfo</h2>
-		<pre>{JSON.stringify(form.checklistInfo, null, 4)}</pre>
-	{/if}
-	{#if form?.location}
-		<h2>Location</h2>
-		<pre>{JSON.stringify(form.location, null, 4)}</pre>
-	{/if}
-	{#if form?.weatherResults}
-		<h2>Weather Results</h2>
-		<pre>{JSON.stringify(form.weatherResults, null, 4)}</pre>
-	{/if}
-	{#if form?.language}
-		<h2>Language</h2>
-		<pre>{JSON.stringify(form.language, null, 4)}</pre>
-	{/if}
-</div>
 
 <!-- --------STYLE-------- -->
 <style>
