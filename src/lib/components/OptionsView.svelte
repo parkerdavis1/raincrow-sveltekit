@@ -12,7 +12,7 @@
 	<!-- </button> -->
 
 	<div class="options-scroll">
-		{#if $viewingPost && $postStatus === 'show'}
+		{#if ($viewingPost && $postStatus === 'show') || ($viewingPost && $postStatus === 'loading')}
 			<WeatherDisplay isPreview={true} isPost={true} />
 		{:else if !$viewingPost && $preStatus === 'show'}
 			<WeatherDisplay isPreview={true} isPost={false} />

@@ -1,10 +1,9 @@
 <script>
-	import { enhance } from '$app/forms';
+	import { enhance, applyAction } from '$app/forms';
+	import { dev } from '$app/environment';
 	import { _ } from '$lib/services/i18n';
-	import { get } from 'svelte/store';
 	import {
 		postStatus,
-		postErrorText,
 		postChecklistInfo,
 		dailyCountError,
 		language,
@@ -12,88 +11,58 @@
 		dailyCount
 	} from '$lib/store';
 
-	import {
-		getChecklistInfo,
-		getTimezoneOffset,
-		convertToUnixTime,
-		getWeather,
-		parseWeather
-	} from '$lib/services/weatherFunctions';
+	import { parseWeather } from '$lib/services/weather/parseWeather';
+	import { onMount } from 'svelte';
 
 	let checklistId = '';
 	let checklistRegex = /S\d{7}\d*/;
 	$: isChecklistId = checklistId.match(checklistRegex);
 
-	$: {
-		if ($language) {
-			getWeatherHandler();
-		} // if language changes, fetch new weather results in native language
-	}
-
 	function incrementDailyCount() {
-		let count = parseInt($dailyCount);
-		count += 1;
-		$dailyCount = count.toString();
-		console.log('$dailyCount: ', $dailyCount);
+		if (!dev) {
+			let count = parseInt($dailyCount);
+			count += 1;
+			$dailyCount = count.toString();
+			console.log('$dailyCount: ', $dailyCount);
+		}
 	}
 
-	async function getWeatherHandler() {
-		if (!isChecklistId || $dailyCountError) return; // if not valid checklist, or exceeded daily count limit, don't call any APIs
+	let submitButton;
+	let ready = false;
+	onMount(() => {
+		ready = true;
+	});
+	$: {
+		if ($language && ready) {
+			submitButton.click();
+		}
+	}
 
-		// Weather Variables to be parsed into results store
-		let weatherResults = {
-			start: null,
-			end: null
-		};
-		let times = {
-			offset: 0,
-			start: {
-				localTime: null,
-				utcTime: null
-			},
-			end: {
-				localTime: null,
-				utcTime: null
-			}
-		};
-		$postChecklistInfo = {};
-
-		$postStatus = 'loading';
-
-		// SERVER SIDE
-
-		[$postChecklistInfo, times] = await getChecklistInfo(checklistId); // get checklistInfo and times from eBird
-
-		if (checkEbirdErrors($postChecklistInfo, times)) return; // if eBird errors encountered, return
-
-		try {
-			times = await getTimezoneOffset(times, $postChecklistInfo);
-			times = convertToUnixTime(times);
-			weatherResults = await getWeather(
-				times,
-				get(postChecklistInfo),
-				weatherResults,
-				get(language)
-			);
-		} catch (error) {
-			postStatus.set('error');
-			postErrorText.set(error);
+	const submitFunction = ({ formElement, formData, action, cancel, submitter }) => {
+		if (!isChecklistId || $dailyCountError) {
+			console.log('CANCELLING!');
+			cancel(); // if not valid checklist, or exceeded daily count limit, don't call any APIs
 			return;
 		}
-		postStatus.set('show');
-		postParsedWeather.set(parseWeather(times, weatherResults));
-		incrementDailyCount();
-	}
+		$postStatus = 'loading';
 
-	// const inputKeyup = (event) => {
-	// 	if (event.key === 'Enter' && isChecklistId) {
-	// 		getWeatherHandler();
-	// 	}
-	// };
+		return async ({ update, result }) => {
+			$postParsedWeather = parseWeather(result.data.postWeather);
+			$postChecklistInfo = result.data.postWeather.checklistInfo;
+			$postStatus = 'show';
+			incrementDailyCount();
+			await applyAction(result);
+		};
+	};
 </script>
 
-<form action="?/postGetWeather" method="POST" use:enhance class="full-width top-ui">
-	<!-- <div class="full-width top-ui"> -->
+<form
+	action="?/postGetWeather"
+	method="POST"
+	id="postGetWeather"
+	class="full-width top-ui"
+	use:enhance={submitFunction}
+>
 	<label for="checklistId">{$_('submitted.checklist_id')}:</label><br />
 	<input
 		type="text"
@@ -105,21 +74,17 @@
 		on:focus={() => (checklistId = '')}
 		class:error={!isChecklistId && checklistId.length > 0}
 	/>
-	<!-- </div> -->
-	<button
-		type="submit"
-		id="submitButton"
-		disabled={!isChecklistId || $dailyCountError}
-		class="button"
-	>
-		{$_('submitted.get_weather')}
-	</button>
 </form>
-
-<!-- 
-	INPUT
-	on:keyup={(event) => inputKeyup(event)} 
--->
+<button
+	bind:this={submitButton}
+	type="submit"
+	id="submitButton"
+	disabled={!isChecklistId || $dailyCountError || $postStatus === 'loading'}
+	class="button"
+	form="postGetWeather"
+>
+	{$_('submitted.get_weather')}
+</button>
 
 <style>
 	.error {

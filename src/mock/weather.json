@@ -8,7 +8,7 @@
 			"dt": 1645888976,
 			"sunrise": 1645853361,
 			"sunset": 1645891727,
-			"temp": 279.13,
+			"temp": 79.13,
 			"feels_like": 276.44,
 			"pressure": 1029,
 			"humidity": 64,
@@ -29,8 +29,8 @@
 				{
 					"id": 800,
 					"main": "Clear",
-					"description": "clear sky",
-					"icon": "01n"
+					"description": "cloudy",
+					"icon": "04d"
 				}
 			]
 		}

@@ -76,7 +76,8 @@
     background-color: rgba(63, 145, 0, 0.9);
   }
   
-  .button:disabled {
+  .button:disabled,
+  .button:hover:disabled {
     background-color: #A2A2A2;
     cursor: default;
   }

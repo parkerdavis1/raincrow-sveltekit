@@ -35,6 +35,7 @@
 	};
 </script>
 
-<button class="button copy-button" on:click={copyToClipboard} class:disabled={copyButtonDisabled}>
+<button class="button copy-button" on:click={copyToClipboard} disabled={copyButtonDisabled}>
 	{copyButtonText}
 </button>
+<!-- class:disabled={copyButtonDisabled} -->

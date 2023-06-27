@@ -52,14 +52,6 @@
 		}
 	}
 
-	$: {
-		if (form?.postWeather) {
-			$postParsedWeather = parseWeather(form.postWeather);
-			$postChecklistInfo = form.postWeather.checklistInfo;
-			$postStatus = 'show';
-		}
-	}
-
 	// Error handling
 	$: {
 		if (form?.error) {

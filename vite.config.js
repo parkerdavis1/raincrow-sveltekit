@@ -6,7 +6,8 @@ export default defineConfig({
 	plugins: [
 		sveltekit(),
 		jsonServer({
-			mockDir: 'src/mock'
+			mockDir: 'src/mock',
+			delay: 300
 		})
 	],
 	test: {

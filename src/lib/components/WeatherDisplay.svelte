@@ -1,11 +1,15 @@
 <script>
 	export let isPreview;
 	export let isPost;
-	import { postParsedWeather, preParsedWeather, options } from '$lib/store';
+	import { postParsedWeather, preParsedWeather, options, postStatus, preStatus } from '$lib/store';
 	import { _ } from '$lib/services/i18n';
 </script>
 
-<div class="weatherDisp" class:results-preview={isPreview}>
+<div
+	class="weatherDisp"
+	class:results-preview={isPreview}
+	class:blur={$postStatus === 'loading' || $preStatus === 'loading'}
+>
 	{#if isPreview}<h3>Preview:</h3>{/if}
 
 	{#if $options.icon}
@@ -13,12 +17,16 @@
 			{#if $options.iconType === 'open'}
 				{@html $postParsedWeather.icon.open}
 			{:else if $options.iconType === 'emoji'}
-				{$postParsedWeather.icon.emoji}
+				<p>
+					{$postParsedWeather.icon.emoji}
+				</p>
 			{/if}
 		{:else if $options.iconType === 'open'}
 			{@html $preParsedWeather.icon.open}
 		{:else if $options.iconType === 'emoji'}
-			{$preParsedWeather.icon.emoji}
+			<p>
+				{$preParsedWeather.icon.emoji}
+			</p>
 		{/if}
 	{/if}
 
@@ -177,5 +185,11 @@
 		margin: auto;
 		min-height: 220px;
 		width: fit-content;
+		transition: filter 100ms;
+	}
+
+	.blur {
+		filter: blur(5px) grayscale(100%);
+		pointer-events: none;
 	}
 </style>
