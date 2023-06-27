@@ -15,7 +15,8 @@
 	import { onMount } from 'svelte';
 
 	let checklistId = '';
-	let checklistRegex = /S\d{7}\d*/;
+	// let checklistRegex = /S\d{7}\d*/;
+	let checklistRegex = /D\d{7}\d*/;
 	$: isChecklistId = checklistId.match(checklistRegex);
 
 	function incrementDailyCount() {
@@ -47,6 +48,10 @@
 		$postStatus = 'loading';
 
 		return async ({ update, result }) => {
+			if (result.data.error) {
+				update();
+				return;
+			}
 			$postParsedWeather = parseWeather(result.data.postWeather);
 			$postChecklistInfo = result.data.postWeather.checklistInfo;
 			$postStatus = 'show';
@@ -72,7 +77,7 @@
 		autocomplete="off"
 		bind:value={checklistId}
 		on:focus={() => (checklistId = '')}
-		class:error={!isChecklistId && checklistId.length > 0}
+		class:input-error={!isChecklistId && checklistId.length > 0}
 	/>
 </form>
 <button
@@ -87,7 +92,7 @@
 </button>
 
 <style>
-	.error {
+	/* .error {
 		border: 1px solid red;
-	}
+	} */
 </style>

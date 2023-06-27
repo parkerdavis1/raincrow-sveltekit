@@ -10,7 +10,11 @@
 
 <div class="full-width">
 	{#if !$dailyCountError}
-		<div class="weather-center weatherDisp" data-testid="weatherResultsPane">
+		<div
+			class="weather-center weatherDisp"
+			data-testid="weatherResultsPane"
+			class:error-pane={$postStatus === 'error'}
+		>
 			<div>
 				{#if $postStatus === 'init'}
 					<p>{$_('submitted.help')}</p>

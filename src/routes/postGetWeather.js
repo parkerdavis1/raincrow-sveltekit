@@ -46,6 +46,8 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 	};
 
 	// TODO: add server-side form validation
+	let checklistRegex = /S\d{7}\d*/;
+	if (!checklistId.match(checklistRegex)) return { error: 'submitted.invalid_checklist_id' };
 
 	// ---- Get checklist info ----
 	const checklistResponse = await getChecklistInfo(checklistId, fetch); // "special" fetch is used so it can be intercepted by the server hooks

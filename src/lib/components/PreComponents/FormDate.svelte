@@ -28,7 +28,7 @@
 		id="date"
 		bind:value={$preFormInput.date}
 		on:focusout={dateFocusout}
-		class:error={$preFormErrors.date}
+		class:input-error={$preFormErrors.date}
 	/>
 	{#if $preFormErrors.date}
 		<span class="error-message">{$_('pre_submit.date_error')}</span>

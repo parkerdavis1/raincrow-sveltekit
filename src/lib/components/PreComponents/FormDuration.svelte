@@ -25,7 +25,7 @@
 		min="0"
 		bind:value={$preFormInput.duration}
 		on:focusout={durationFocusout}
-		class:error={$preFormErrors.duration}
+		class:input-error={$preFormErrors.duration}
 	/>
 	{#if $preFormErrors.duration}
 		<span class="error-message">{$_('pre_submit.duration_error')}</span>

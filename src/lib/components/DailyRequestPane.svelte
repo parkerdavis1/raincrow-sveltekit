@@ -17,7 +17,7 @@
 	$: remainingCount = 5 - $dailyCount;
 </script>
 
-<div class="daily-request-pane" class:error={$dailyCountError}>
+<div class="daily-request-pane" class:error-pane={$dailyCountError}>
 	{#if $dailyCountError}
 		<p>{$_('daily_request.error')}</p>
 		<p>{$_('daily_request.try_again')} {displayTimeUntil}</p>
@@ -43,9 +43,7 @@
 		margin-bottom: 0.5rem;
 	}
 
-	.error {
+	.error-pane {
 		color: black;
-		background-color: hsl(0, 100%, 98%);
-		padding: 1rem;
 	}
 </style>

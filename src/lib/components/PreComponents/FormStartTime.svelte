@@ -28,7 +28,7 @@
 		id="startTime"
 		bind:value={$preFormInput.startTime}
 		on:focusout={startTimeFocusout}
-		class:error={$preFormErrors.startTime}
+		class:input-error={$preFormErrors.startTime}
 	/>
 	{#if $preFormErrors.startTime}
 		<span class="error-message">{$_('pre_submit.start_time_error')}</span>

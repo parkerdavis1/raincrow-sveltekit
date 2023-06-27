@@ -50,7 +50,7 @@
 		name="latlon"
 		bind:value={$preFormInput.latlon}
 		on:focusout={latlonFocusout}
-		class:error={$preFormErrors.latlon}
+		class:input-error={$preFormErrors.latlon}
 	/>
 	{#if $preFormErrors.latlon}
 		<span class="error-message">{$_('pre_submit.coordinates_error')}</span>
