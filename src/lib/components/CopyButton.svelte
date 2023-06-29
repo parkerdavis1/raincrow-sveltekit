@@ -1,5 +1,5 @@
 <script>
-	export let view;
+	export let isPost;
 
 	let copyButtonText = $_('clipboard.copy');
 	let copyButtonDisabled = false;
@@ -14,7 +14,7 @@
 
 	const copyToClipboard = () => {
 		if (navigator.clipboard) {
-			navigator.clipboard.writeText(view === 'post' ? $postWeatherCopy : $preWeatherCopy).then(
+			navigator.clipboard.writeText(isPost ? $postWeatherCopy : $preWeatherCopy).then(
 				function () {
 					copyButtonText = $_('clipboard.copied');
 					copyButtonDisabled = true;

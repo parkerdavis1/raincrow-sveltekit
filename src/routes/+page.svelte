@@ -35,7 +35,6 @@
 
 	// Initialize language store with cookie data from load function
 	if (!$language) {
-		console.log('hello from +page.svelte $language if statement');
 		$language = data.lang;
 	}
 
@@ -48,14 +47,12 @@
 	}
 	// Initialize options store with cookie data from load function
 	if (!$options) {
-		console.log('hello from +page.svelte $options if statement');
 		$options = JSON.parse(data.options);
-		console.log('$options', $options);
 	}
 	// Update options cookie when options store changes
 	$: {
 		if (browser) {
-			document.cookie = `options=${JSON.stringify($options)}; path='/', samesite=strict`;
+			document.cookie = `options=${JSON.stringify($options)}; path='/'; samesite=strict`;
 		}
 	}
 </script>

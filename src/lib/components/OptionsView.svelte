@@ -1,5 +1,5 @@
 <script>
-	import WeatherDisplay from '$lib/components/WeatherDisplay.svelte';
+	import WeatherResults from '$lib/components/WeatherResults.svelte';
 	import OptionsList from '$lib/components/OptionsList.svelte';
 
 	import { postStatus, preStatus, optionsView, viewingPost } from '$lib/store';
@@ -14,18 +14,18 @@
 	<div class="options-scroll">
 		{#if $viewingPost}
 			{#if $postStatus === 'show' || $postStatus === 'loading'}
-				<WeatherDisplay isPreview={true} isPost={true} />
+				<WeatherResults isPreview={true} isPost={true} />
 			{/if}
 		{:else if !$viewingPost}
 			{#if $preStatus === 'show' || $preStatus === 'loading'}
-				<WeatherDisplay isPreview={true} isPost={false} />
+				<WeatherResults isPreview={true} isPost={false} />
 			{/if}
 		{/if}
 
 		<!-- {#if ($viewingPost && $postStatus === 'show') || ($viewingPost && $postStatus === 'loading')}
-			<WeatherDisplay isPreview={true} isPost={true} />
+			<WeatherResults isPreview={true} isPost={true} />
 		{:else if (!$viewingPost && $preStatus === 'show') || (!$viewingPost && $preStatus === 'loading')}
-			<WeatherDisplay isPreview={true} isPost={false} />
+			<WeatherResults isPreview={true} isPost={false} />
 		{/if} -->
 		<OptionsList />
 	</div>
