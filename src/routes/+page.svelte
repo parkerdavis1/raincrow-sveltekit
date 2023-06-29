@@ -1,5 +1,4 @@
 <script>
-	export let form;
 	export let data;
 
 	import { browser } from '$app/environment';
@@ -14,9 +13,7 @@
 	import OptionsView from '$lib/components/OptionsView.svelte';
 
 	// Helpers
-	import { locale } from 'svelte-i18n';
 	import { _, setupI18n } from '$lib/services/i18n';
-	import { parseWeather } from '$lib/services/weather/parseWeather';
 
 	// Stores
 	import {
@@ -25,13 +22,7 @@
 		language,
 		dailyCountError,
 		viewingPost,
-		postStatus,
-		postErrorText,
-		postParsedWeather,
-		postChecklistInfo,
-		preStatus,
-		preErrorText,
-		preParsedWeather
+		options
 	} from '$lib/store.js';
 
 	// Other Functions
@@ -43,25 +34,28 @@
 	};
 
 	// Initialize language store with cookie data from load function
-	$language = data.lang;
-	// Update setupI18n when language changes
+	if (!$language) {
+		console.log('hello from +page.svelte $language if statement');
+		$language = data.lang;
+	}
+
+	// Update setupI18n and update lang cookie when language store changes
 	$: {
 		setupI18n({ withLocale: $language });
 		if (browser) {
 			document.cookie = `lang=${$language}; path=/; samesite=strict`;
 		}
 	}
-
-	// Error handling
+	// Initialize options store with cookie data from load function
+	if (!$options) {
+		console.log('hello from +page.svelte $options if statement');
+		$options = JSON.parse(data.options);
+		console.log('$options', $options);
+	}
+	// Update options cookie when options store changes
 	$: {
-		if (form?.error) {
-			if (viewingPost) {
-				$postStatus = 'error';
-				$postErrorText = $_(form.error);
-			} else {
-				$preStatus = 'error';
-				$preErrorText = $_(form.error);
-			}
+		if (browser) {
+			document.cookie = `options=${JSON.stringify($options)}; path='/', samesite=strict`;
 		}
 	}
 </script>

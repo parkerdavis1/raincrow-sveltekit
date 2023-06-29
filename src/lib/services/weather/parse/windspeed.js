@@ -8,8 +8,8 @@ export function parseWindspeed(weatherResults) {
 			gusts: weatherResults.start.data[0].wind_gust
 		},
 		end: {
-			avg: weatherResults.end.data[0].wind_speed,
-			gusts: weatherResults.end.data[0].wind_gust
+			avg: weatherResults.end?.data[0].wind_speed,
+			gusts: weatherResults.end?.data[0].wind_gust
 		}
 	};
 

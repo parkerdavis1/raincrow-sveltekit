@@ -1,11 +1,11 @@
 <script>
-	import InputForm from '$lib/components/PostComponents/InputForm.svelte';
+	import PostInputForm from '$lib/components/PostComponents/PostInputForm.svelte';
 	import ChecklistInfo from '$lib/components/PostComponents/ChecklistInfo.svelte';
 	import WeatherResults from '$lib/components/PostComponents/WeatherResults.svelte';
 </script>
 
 <div class="ui-container">
-	<InputForm />
+	<PostInputForm />
 	<ChecklistInfo />
 	<WeatherResults />
 </div>

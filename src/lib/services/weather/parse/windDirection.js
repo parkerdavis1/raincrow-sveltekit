@@ -46,11 +46,11 @@ export function parseWindDirection(weatherResults) {
 	let parsedWindDirection = {
 		text: dataRange(
 			convertDegreesToDirection(weatherResults.start.data[0].wind_deg),
-			convertDegreesToDirection(weatherResults.end.data[0].wind_deg)
+			convertDegreesToDirection(weatherResults.end?.data[0].wind_deg)
 		),
 		arrow: dataRange(
 			convertDegreesToArrow(weatherResults.start.data[0].wind_deg),
-			convertDegreesToArrow(weatherResults.end.data[0].wind_deg)
+			convertDegreesToArrow(weatherResults.end?.data[0].wind_deg)
 		)
 	};
 

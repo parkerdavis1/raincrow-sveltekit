@@ -1,12 +1,14 @@
 <script>
 	import { _ } from '$lib/services/i18n';
 	import { preFormInput, preFormErrors } from '$lib/store';
+	import { validateDuration } from '$lib/services/validation';
 
-	$: if (typeof $preFormInput.duration === 'number' && $preFormInput.duration !== undefined) {
+	$: if (validateDuration($preFormInput.duration)) {
 		$preFormErrors.duration = false;
 	}
+
 	const durationFocusout = () => {
-		if (typeof $preFormInput.duration !== 'number') {
+		if (!validateDuration($preFormInput.duration)) {
 			$preFormErrors.duration = true;
 		}
 	};
@@ -19,6 +21,7 @@
 	>
 	<br />
 	<input
+		form="preGetWeather"
 		type="number"
 		name="duration"
 		id="duration"

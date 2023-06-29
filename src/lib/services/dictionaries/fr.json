@@ -89,7 +89,7 @@
     "get_weather" : "Obtenir la météo",
     "latitude" : "Latitude",
     "locate" : "Localiser",
-    "locate_error" : "Vous devez autoriser l'accès à la localisation (ERROR({errorCode}): {errorMessage})",
+    "locate_error" : "Vous devez autoriser l'accès à la localisation",
     "location" : "Localisation",
     "location_service_error" : "Les services de localisation doivent être activés pour utiliser le bouton \"Localiser\".",
     "longitude" : "Longitude",

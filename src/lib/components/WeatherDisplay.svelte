@@ -8,7 +8,8 @@
 <div
 	class="weatherDisp"
 	class:results-preview={isPreview}
-	class:blur={$postStatus === 'loading' || $preStatus === 'loading'}
+	class:blur={($postStatus === 'loading' && isPost === true) ||
+		($preStatus === 'loading' && isPost === false)}
 >
 	{#if isPreview}<h3>Preview:</h3>{/if}
 

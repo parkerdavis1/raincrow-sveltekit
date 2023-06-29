@@ -3,17 +3,17 @@
 
 	import { _ } from '$lib/services/i18n';
 	import { preFormInput, preFormErrors } from '$lib/store';
+	import { validateStartTime } from '$lib/services/validation';
 
 	$preFormInput.startTime = currentDateTime.startOf('hour').format('HH:mm');
 
-	const startTimeRegex = /\d{1,2}:\d{2}$/;
 	// Validation
-	$: if (!$preFormInput.startTime.match(startTimeRegex) && $preFormInput.startTime.length > 0) {
+	$: if (validateStartTime($preFormInput.startTime)) {
 		$preFormErrors.startTime = false;
 	}
 
 	const startTimeFocusout = () => {
-		if (!$preFormInput.startTime.match(startTimeRegex)) {
+		if (!validateStartTime($preFormInput.startTime)) {
 			$preFormErrors.startTime = true;
 		}
 	};
@@ -23,6 +23,7 @@
 	<label for="startTime">{$_('pre_submit.start_time')}</label>
 	<br />
 	<input
+		form="preGetWeather"
 		type="time"
 		name="startTime"
 		id="startTime"

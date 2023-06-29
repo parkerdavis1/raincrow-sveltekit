@@ -3,26 +3,27 @@
 
 	import { preFormInput, preFormErrors } from '$lib/store';
 	import { _ } from '$lib/services/i18n';
+	import { validateDate } from '$lib/services/validation';
 
 	$preFormInput.date = currentDateTime.format('YYYY-MM-DD');
 
+	// Validation
+	$: if (validateDate($preFormInput.date)) {
+		$preFormErrors.date = false;
+	}
+
 	const dateFocusout = () => {
-		if (!$preFormInput.date.match(dateRegex)) {
+		if (!validateDate($preFormInput.date)) {
 			$preFormErrors.date = true;
 		}
 	};
-
-	// Validation
-	const dateRegex = /\d{4}-\d{1,2}-\d{1,2}/;
-	$: if (!$preFormInput.date.match(dateRegex) && $preFormInput.date.length > 0) {
-		$preFormErrors.date = false;
-	}
 </script>
 
 <div class="date-input full-width">
 	<label for="date">{$_('pre_submit.date')}</label>
 	<br />
 	<input
+		form="preGetWeather"
 		type="date"
 		name="date"
 		id="date"

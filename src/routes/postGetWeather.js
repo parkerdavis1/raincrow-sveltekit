@@ -1,6 +1,8 @@
 import { getChecklistInfo } from '$lib/services/weather/getChecklistInfo';
 import { getTimezoneOffset, getWeatherForStartAndEnd } from '$lib/services/weather/openWeather';
 import { appendCalculatedUtcTimes } from '$lib/services/weather/appendCalculatedUtcTimes';
+import { validateChecklistId } from '$lib/services/validation';
+import { fail } from '@sveltejs/kit';
 
 export default async function postGetWeather({ fetch, request, cookies }) {
 	const lang = cookies.get('lang');
@@ -21,7 +23,7 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 		}
 	};
 
-	let responseObj = {
+	let postWeather = {
 		checklistInfo: {
 			checklistId: null,
 			locationId: null,
@@ -45,32 +47,54 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 		timeZoneOffset: null
 	};
 
-	// TODO: add server-side form validation
-	let checklistRegex = /S\d{7}\d*/;
-	if (!checklistId.match(checklistRegex)) return { error: 'submitted.invalid_checklist_id' };
+	// ---- Server-side form validation ----
+	if (!validateChecklistId(checklistId)) {
+		return fail(400, {
+			type: 'checklistValidate',
+			checklistId
+		});
+	}
 
 	// ---- Get checklist info ----
-	const checklistResponse = await getChecklistInfo(checklistId, fetch); // "special" fetch is used so it can be intercepted by the server hooks
-	if (checklistResponse.error) return { error: checklistResponse.error }; // Return errors if they exist
+	const checklistResponse = await getChecklistInfo(checklistId, fetch); // svelte fetch is used so it can be intercepted by the server hooks
+	// if (checklistResponse.error) return { postError: checklistResponse.error }; // Return errors if they exist
+	if (checklistResponse.error) {
+		return fail(400, {
+			type: 'checklistResponse',
+			message: checklistResponse.error,
+			checklistId
+		});
+	}
 
-	// Handle data
-	responseObj.checklistInfo = checklistResponse.checklistInfo;
-	responseObj.location = checklistResponse.location;
+	// ---- Handle data ----
+	postWeather.checklistInfo = checklistResponse.checklistInfo;
+	postWeather.location = checklistResponse.location;
 	dayjsTimes = checklistResponse.dayjsTimes;
 
 	// ---- Get timezone offset ----
-	dayjsTimes = await getTimezoneOffset(responseObj, dayjsTimes, lang, fetch);
-	if (dayjsTimes.error) return { error: dayjsTimes.error }; // Return errors if they exist
+	dayjsTimes = await getTimezoneOffset(postWeather, dayjsTimes, lang, fetch);
+	// if (dayjsTimes.error) return { postError: dayjsTimes.error }; // Return errors if they exist
+	if (dayjsTimes.error)
+		return fail(400, {
+			type: 'openweatherResponse',
+			message: dayjsTimes.error,
+			checklistId
+		});
+
 	dayjsTimes = appendCalculatedUtcTimes(dayjsTimes); // Append UTC Unix Times
 
 	// ---- Query weather ----
-	responseObj.weatherResults = await getWeatherForStartAndEnd(responseObj, dayjsTimes, lang, fetch);
-	if (responseObj.weatherResults.error) return { error: responseObj.weatherResults.error }; // Return errors if they exist
+	postWeather.weatherResults = await getWeatherForStartAndEnd(postWeather, dayjsTimes, lang, fetch);
+	// if (postWeather.weatherResults.error) return { postError: postWeather.weatherResults.error }; // Return errors if they exist
+	if (postWeather.weatherResults.error)
+		return fail(400, {
+			type: 'openweatherResponse',
+			message: postWeather.weatherResults.error,
+			checklistId
+		});
 
-	// ---- Append offset to responseObj ----
-	responseObj.timeZoneOffset = dayjsTimes.offset;
+	// ---- Append offset to postWeather ----
+	postWeather.timeZoneOffset = dayjsTimes.offset;
 
-	return {
-		postWeather: responseObj
-	};
+	return { postWeather };
 }

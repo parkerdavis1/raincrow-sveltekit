@@ -89,7 +89,7 @@
     "get_weather" : "Datos meteorológicos",
     "latitude" : "Latitud",
     "locate" : "Ubicar",
-    "locate_error" : "Permita el acceso a la ubicación {errorCode}): {errorMessage})",
+    "locate_error" : "Permita el acceso a la ubicación",
     "location" : "Ubicación",
     "location_service_error" : "Los ajustes de ubicación deben estar habilitados para poder usar el botón \"Ubicar\".",
     "longitude" : "Longitud",

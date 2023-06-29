@@ -2,13 +2,13 @@ import { get } from 'svelte/store';
 import { _ } from '$lib/services/i18n';
 
 export function convertToCelsius(tempF) {
-	if (typeof tempF !== 'number') throw Error('Input must be a number');
+	// if (typeof tempF !== 'number') throw Error('Input must be a number');
 
 	return (5 / 9) * (tempF - 32);
 }
 
 export function mphToMs(mph) {
-	if (typeof mph !== 'number') throw Error('Input must be a number');
+	// if (typeof mph !== 'number') throw Error('Input must be a number');
 	if (mph < 0) throw Error('Number must be non-negative');
 
 	// -> KM -> M -> MIN -> SEC
@@ -16,7 +16,7 @@ export function mphToMs(mph) {
 }
 
 export function mphToKmh(mph) {
-	if (typeof mph !== 'number') throw Error('Input must be a number');
+	// if (typeof mph !== 'number') throw Error('Input must be a number');
 	if (mph < 0) throw Error('Number must be non-negative');
 
 	// -> KM
@@ -24,7 +24,7 @@ export function mphToKmh(mph) {
 }
 
 export function mphToBeaufort(mph) {
-	if (typeof mph !== 'number') throw Error('Input must be a number');
+	// if (typeof mph !== 'number') throw Error('Input must be a number');
 	if (mph < 0) throw Error('Number must be non-negative');
 
 	if (mph >= 0 && mph <= 1) {
@@ -57,7 +57,7 @@ export function mphToBeaufort(mph) {
 }
 
 export function mphToDescription(mph) {
-	if (typeof mph !== 'number') throw Error('Input must be a number');
+	// if (typeof mph !== 'number') throw Error('Input must be a number');
 	if (mph < 0) throw Error('Number must be non-negative');
 
 	if (mph >= 0 && mph <= 1) {

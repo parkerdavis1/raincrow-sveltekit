@@ -1,6 +1,10 @@
 <script>
+	import { enhance, applyAction } from '$app/forms';
+	import { onMount } from 'svelte';
 	import { _ } from '$lib/services/i18n';
-	import dayjs from 'dayjs';
+	import dayjs from '$lib/services/dayjsExtended';
+	import { parseWeather } from '$lib/services/weather/parseWeather';
+	import { incrementDailyCount } from '$lib/services/incrementDailyCount';
 
 	// Components
 	import FormLocate from '$lib/components/PreComponents/FormLocate.svelte';
@@ -8,20 +12,13 @@
 	import FormStartTime from '$lib/components/PreComponents/FormStartTime.svelte';
 	import FormDuration from '$lib/components/PreComponents/FormDuration.svelte';
 
-	// Weather Functions
-	import {
-		getTimezoneOffset,
-		convertToUnixTime,
-		getWeather,
-		parseWeather
-	} from '$lib/services/weatherFunctions';
-
 	// Stores
 	import {
 		preStatus,
 		dailyCount,
 		dailyCountError,
 		language,
+		languageChange,
 		preParsedWeather,
 		preErrorText,
 		preFormInput,
@@ -31,81 +28,56 @@
 	// Date Time
 	const currentDateTime = dayjs();
 
-	$: {
-		if ($language) handleGetWeather();
+	// When language changes, resubmit form to get weather in correct language
+	let submitButton;
+	$: if ($languageChange) {
+		console.log('language change');
+		if (submitButton) {
+			submitButton.click();
+		}
 	}
 
-	// latlon Parser
-	const parseLatlon = (latlon) => {
-		const parenRemoveRegex = /(\(|\))/g;
-		const latlonNoParen = latlon.replace(parenRemoveRegex, ''); // remove parenthesis
-		let commaIndex = latlonNoParen.indexOf(',');
-		return {
-			lat: latlonNoParen.slice(0, commaIndex).trim(),
-			lon: latlonNoParen.slice(commaIndex + 1).trim()
-		};
-	};
-
 	// Submit & Error Handling
-	const handleGetWeather = async () => {
-		// Initial Time Object
-		let times = {
-			offset: 0,
-			start: {
-				localTime: null,
-				utcTime: null
-			},
-			end: {
-				localTime: null,
-				utcTime: null
-			}
-		};
-
-		// Initial Weather Results Object
-		let weatherResults = {
-			start: null,
-			end: null
-		};
-
-		// Location Obj
-		let location = {
-			lat: null,
-			lon: null
-		};
-
+	const submitFunction = ({ formElement, formData, action, cancel, submitter }) => {
+		// check for errors
 		if (!formIsValid || $dailyCountError) {
-			return;
-		}
-		$preStatus = 'loading';
-		location = parseLatlon($preFormInput.latlon);
-		times.start.localTime = dayjs(
-			$preFormInput.date + ' ' + $preFormInput.startTime,
-			'YYYY-MM-DD HH:mm'
-		);
-		times.end.localTime = dayjs(times.start.localTime).add($preFormInput.duration, 'minute');
-		try {
-			times = await getTimezoneOffset(times, location);
-			times = convertToUnixTime(times);
-			weatherResults = await getWeather(times, location, weatherResults, $language);
-		} catch (error) {
-			$preStatus = 'error';
-			$preErrorText = error;
+			console.log('CANCELLING!');
+			cancel();
 			return;
 		}
 
-		$preStatus = 'show';
-		$preParsedWeather = parseWeather(times, weatherResults);
-		incrementDailyCount();
+		$preStatus = 'loading';
+
+		return async ({ update, result }) => {
+			if (result.type === 'failure') {
+				$preStatus = 'error';
+				// render error text
+				$preErrorText = 'Server error: check ';
+				result.data.errors.forEach((error) => {
+					$preFormErrors[error] = true;
+					$preErrorText += error + ', ';
+				});
+				$preErrorText = $preErrorText.slice(0, $preErrorText.length - 2);
+
+				// restore inputs
+				$preFormInput = {
+					...$preFormInput,
+					latlon: result.data.latlon,
+					date: result.data.date,
+					startTime: result.data.startTime,
+					duration: result.data.duration
+				};
+				return;
+			}
+
+			$preParsedWeather = parseWeather(result.data.preWeather);
+			$preStatus = 'show';
+			incrementDailyCount();
+			await applyAction(result);
+		};
 	};
 
 	// Form Validation
-
-	// $: formIsValid =
-	//     latlonInput.match(latlonRegex) &&
-	//     date.match(dateRegex) &&
-	//     startTime.match(startTimeRegex) &&
-	//     typeof duration === 'number' &&
-	//     duration >= 0;
 	$: formIsValid =
 		!$preFormErrors.latlon &&
 		$preFormInput.latlon.length > 0 &&
@@ -113,21 +85,9 @@
 		!$preFormErrors.startTime &&
 		!$preFormErrors.duration &&
 		$preFormInput.duration >= 0;
-
-	function incrementDailyCount() {
-		let count = parseInt($dailyCount);
-		count += 1;
-		$dailyCount = count.toString();
-		console.log('$dailyCount: ', $dailyCount);
-	}
-
-	const inputKeyup = (event) => {
-		if (event.key === 'Enter') {
-			handleGetWeather();
-		}
-	};
 </script>
 
+<form action="?/preGetWeather" method="POST" id="preGetWeather" use:enhance={submitFunction} />
 <FormLocate />
 
 <FormDate {currentDateTime} />
@@ -136,7 +96,12 @@
 
 <FormDuration />
 
-<button class="preView-button button" type="submit" disabled={!formIsValid || $dailyCountError}
+<button
+	bind:this={submitButton}
+	class="preView-button button"
+	type="submit"
+	form="preGetWeather"
+	disabled={!formIsValid || $dailyCountError}
 	>{$_('pre_submit.get_weather')}
 </button>
 

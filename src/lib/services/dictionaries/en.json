@@ -89,7 +89,7 @@
     "get_weather" : "Get Weather",
     "latitude" : "Latitude",
     "locate" : "Locate",
-    "locate_error" : "Allow location access to use (ERROR({errorCode}): {errorMessage})",
+    "locate_error" : "Allow location access to use",
     "location" : "Location",
     "location_service_error" : "Location services must be enabled to use \"Locate\" button.",
     "longitude" : "Longitude",

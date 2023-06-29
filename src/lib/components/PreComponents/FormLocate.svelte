@@ -1,16 +1,18 @@
 <script>
 	import { _ } from '$lib/services/i18n';
 	import { preFormInput, preFormErrors } from '$lib/store';
+	import { validateLatlon } from '$lib/services/validation';
 
-	let locateButtonText = $_('pre_submit.locate');
+	// let locateButtonText = $_('pre_submit.locate');
+	let locateError = false;
 
 	// Validation
-	const latlonRegex = /\s*-?\d+\.\d+,\s*-?\d+\.\d+\s*/;
-	$: if ($preFormInput.latlon.match(latlonRegex) && $preFormInput.latlon.length > 0) {
+	$: if (validateLatlon($preFormInput.latlon)) {
 		$preFormErrors.latlon = false;
 	}
+
 	const latlonFocusout = () => {
-		if (!$preFormInput.latlon.match(latlonRegex)) {
+		if (!validateLatlon($preFormInput.latlon)) {
 			$preFormErrors.latlon = true;
 		}
 	};
@@ -24,9 +26,10 @@
 			maximumAge: 1800000
 		};
 		const error = (error) => {
-			locateButtonText = $_('pre_submit.locate_error', {
-				values: { errorCode: error.code, errorMessage: error.message }
-			});
+			// locateButtonText = $_('pre_submit.locate_error', {
+			// 	values: { errorCode: error.code, errorMessage: error.message }
+			// });
+			locateError = true;
 			console.warn(`ERROR(${error.code}): ${error.message}`);
 		};
 		const success = (position) => {
@@ -46,6 +49,7 @@
 	</label>
 	<br />
 	<input
+		form="preGetWeather"
 		type="text"
 		name="latlon"
 		bind:value={$preFormInput.latlon}
@@ -58,5 +62,9 @@
 </div>
 
 <button class="preView-button locate button" on:click={handleLocate}>
-	{locateButtonText}
+	{#if locateError}
+		{$_('pre_submit.locate_error')}
+	{:else}
+		{$_('pre_submit.locate')}
+	{/if}
 </button>

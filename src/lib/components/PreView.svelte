@@ -24,7 +24,7 @@
 
 	<div class="full-width">
 		{#if !$dailyCountError}
-			<div class="weather-center weatherDisp">
+			<div class="weather-center weatherDisp" class:error-pane={$preStatus === 'error'}>
 				<div>
 					{#if $preStatus === 'init'}
 						<!-- <p>Enter location, date, time, and duration and click "Get Weather"</p> -->
