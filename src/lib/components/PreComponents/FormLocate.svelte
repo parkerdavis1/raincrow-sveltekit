@@ -52,6 +52,7 @@
 		form="preGetWeather"
 		type="text"
 		name="latlon"
+		id="latlon"
 		bind:value={$preFormInput.latlon}
 		on:focusout={latlonFocusout}
 		class:input-error={$preFormErrors.latlon}

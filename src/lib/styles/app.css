@@ -9,16 +9,41 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
+
+    --background-color: #FFFFFF;
+    --border-color: #000000;
+    --text-color: #000000;
+    --button-text-color: #FFFFFF;
+    --nav-bg: #EEEEEE;
+    --nav-active-bg: #FFFFFF;
+    /* --green-button-bg: #228000; */
+    --green-button-bg: #409100;
+    --green-button-bg-hover: #1e7000;
+    /* --copy-button-bg: #2877BD; */
+    --copy-button-bg: #4a96d9;
+    --copy-button-bg-hover: #347cbb;
+    --link-color: #0070b3;
+    --link-color-hover: #006199;
+    /* --link-color: #7d84ff; */
+    /* --link-color-hover: #535bf2; */
+    --weather-disp-bg: #f0f6fa;
+    /* --options-button-hover: #ef1; */
+    --options-button-hover: #00619933;
+    --button-disabled-bg: #A2A2A2;
+    --error-pane-bg: hsl(0, 100%, 98%);
+    --error-pane-border: #E60000;
+    --error-text: #E60000;
+    --daily-request-text: #707070;
   }
   
   a {
     font-weight: 500;
-    color: #646cff;
+    color: var(--link-color);
     text-decoration: inherit;
   }
   
   a:hover {
-    color: #535bf2;
+    color:var(--link-color-hover);
   }
   
   #app {
@@ -66,29 +91,30 @@
     border-radius: 5px;
     padding: 5px;
     margin-top: 1rem;
-    background-color:#409100 ;
-    color: white;
+    background-color: var(--green-button-bg);
+    color: var(--button-text-color);
     grid-column: button-start / button-end;
   
   }
   
   .button:hover {
-    background-color: rgba(63, 145, 0, 0.9);
+    background-color: var(--green-button-bg-hover);
   }
   
   .button:disabled,
   .button:hover:disabled {
-    background-color: #A2A2A2;
+    background-color: var(--button-disabled-bg);
     cursor: default;
   }
   
   .copy-button {
-    background-color: #4A96D9;
+    background-color: var(--copy-button-bg);
     padding: 0 15px;
   }
   
   .copy-button:hover {
-    background-color: rgba(74, 150, 217, 0.9);
+    /* background-color: rgba(74, 150, 217, 0.9); */
+    background-color: var(--copy-button-bg-hover)
   }
   
   .preView-button {
@@ -104,12 +130,12 @@
   }
   
   .response-field {
-    background-color: #f0f6fa;
+    background-color: var(--weather-disp-bg);
     margin-top: 1rem;
   }
   
   .weatherDisp {
-    background-color: #f0f6fa;
+    background-color: var(--weather-disp-bg);
     padding: 1rem;
   }
   
@@ -136,7 +162,7 @@
   
   .error-message {
     font-size: small;
-    color: red;
+    color: var(--error-text);
     margin: 0;
     padding: 0;
     position: relative;
@@ -144,12 +170,12 @@
   }
 
   .input-error { 
-    border: 1px red solid !important;
+    border: 1px var(--error-pane-border) solid !important;
   }
 
   .error-pane {
-    border: 1px red solid !important;
-		color: black;
-		background-color: hsl(0, 100%, 98%);
+    border: 1px var(--error-pane-border) solid !important;
+		color: var(--text-color);
+		background-color: var(--error-pane-bg);
 		padding: 1rem;
   }

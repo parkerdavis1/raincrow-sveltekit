@@ -7,10 +7,6 @@
 </script>
 
 <div class="options-container">
-	<!-- <button class="menu-exit" on:click={() => $optionsView = !$optionsView}> -->
-	<!-- <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 256 256"><path fill="currentColor" d="M208.49 191.51a12 12 0 0 1-17 17L128 145l-63.51 63.49a12 12 0 0 1-17-17L111 128L47.51 64.49a12 12 0 0 1 17-17L128 111l63.51-63.52a12 12 0 0 1 17 17L145 128Z"/></svg> -->
-	<!-- </button> -->
-
 	<div class="options-scroll">
 		{#if $viewingPost}
 			{#if $postStatus === 'show' || $postStatus === 'loading'}
@@ -22,11 +18,6 @@
 			{/if}
 		{/if}
 
-		<!-- {#if ($viewingPost && $postStatus === 'show') || ($viewingPost && $postStatus === 'loading')}
-			<WeatherResults isPreview={true} isPost={true} />
-		{:else if (!$viewingPost && $preStatus === 'show') || (!$viewingPost && $preStatus === 'loading')}
-			<WeatherResults isPreview={true} isPost={false} />
-		{/if} -->
 		<OptionsList />
 	</div>
 
@@ -39,7 +30,7 @@
 
 <style>
 	.options-container {
-		background-color: white;
+		background-color: var(--background-color);
 		position: fixed;
 		width: 400px;
 		max-width: 95%;
@@ -48,7 +39,7 @@
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		border: 1px black solid;
+		border: 1px var(--border-color) solid;
 		padding: 1rem;
 
 		display: grid;

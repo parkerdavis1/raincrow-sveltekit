@@ -31,7 +31,7 @@
 		text-align: center;
 		width: fit-content;
 		height: fit-content;
-		color: gray;
+		color: var(--daily-request-text);
 		font-size: 0.9rem;
 		padding: 0 0.5rem;
 		justify-self: end;
@@ -44,6 +44,6 @@
 	}
 
 	.error-pane {
-		color: black;
+		color: var(--text-color);
 	}
 </style>

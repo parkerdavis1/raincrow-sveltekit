@@ -20,7 +20,12 @@
 	<div class="footer-right">
 		<!-- <button on:click={toggleOptions}>{$_('nav.options')}</button>
         <LocaleSwitcher value={$language}/> -->
-		<button class="settings-button" on:click={toggleOptions}>
+		<button
+			aria-label="Options Button"
+			title="Options"
+			class="settings-button"
+			on:click={toggleOptions}
+		>
 			<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
 				><path
 					fill="currentColor"
@@ -42,7 +47,7 @@
 
 	button {
 		/* background-color: rgba(100,108,255, 0.2); */
-		color: black;
+		color: var(--text-color);
 		/* border: 1px #858585 solid; */
 		padding: 3px;
 		cursor: pointer;
@@ -51,16 +56,17 @@
 	}
 
 	svg {
-		color: #444;
+		/* color: #444; */
+		color: var(--text-color);
 	}
 
 	button:hover {
-		background-color: rgba(100, 108, 255, 0.3);
+		background-color: var(--options-button-hover);
 	}
 
 	.settings-button {
 		border-radius: 50%;
-		background-color: #eee;
+		background-color: var(--nav-bg);
 		/* border: 1px #444 solid; */
 	}
 
@@ -72,7 +78,7 @@
 	.about-button {
 		border: none;
 		background-color: white;
-		color: #646cff;
+		color: var(--link-color);
 	}
 
 	.about-button:hover {

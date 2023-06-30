@@ -79,16 +79,17 @@
 	/* these are for buttons and highlights in the text, the HTML is in i18n objects so they require :global */
 	:global(span.highlight),
 	:global(span.copy) {
-		color: white;
+		color: var(--button-text-color);
 		padding: 3px 6px;
 		border-radius: 5px;
 	}
 
 	:global(span.highlight) {
-		background: #409100;
+		/* background: #409100; */
+		background: var(--green-button-bg);
 	}
 
 	:global(span.copy) {
-		background: #4a96d9;
+		background: var(--copy-button-bg);
 	}
 </style>

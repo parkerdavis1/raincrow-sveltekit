@@ -25,7 +25,7 @@
 	}
 
 	.about-container {
-		background-color: white;
+		background-color: var(--background-color);
 		position: fixed;
 		width: 500px;
 		max-width: 95%;

@@ -41,7 +41,7 @@
 		align-items: center;
 		border-radius: 10px;
 		height: 3rem;
-		background-color: #eeeeee;
+		background-color: var(--nav-bg);
 	}
 
 	.nav-item {
@@ -53,15 +53,15 @@
 		justify-content: center;
 		align-items: center;
 		cursor: pointer;
-		color: black;
+		color: var(--text-color);
 	}
 
 	.active {
-		background-color: #ffffff;
+		background-color: var(--nav-active-bg);
 	}
 
 	.green {
-		color: #409100;
+		color: var(--green-button-bg);
 	}
 
 	.title {
