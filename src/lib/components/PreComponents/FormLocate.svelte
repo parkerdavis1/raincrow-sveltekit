@@ -26,14 +26,15 @@
 	};
 
 	// GEOLOCATION
-	const handleLocate = async (event) => {
-		event.preventDefault();
+	const handleLocate = async () => {
+		locateError.error = false;
 		const options = {
 			enableHighAccuracy: false,
 			timeout: 10000,
 			maximumAge: 1800000
 		};
 		const error = (error) => {
+			if (error.code === 0) return; // ignore kCLErrorDomain error 0
 			locateError = {
 				error: true,
 				code: error.code,
