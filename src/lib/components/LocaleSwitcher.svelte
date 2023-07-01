@@ -1,11 +1,14 @@
 <script>
-	import { language, languageChange } from '$lib/store';
+	import { language, languageChange, postStatus, preStatus } from '$lib/store';
 
 	export let value = localStorage.storedLanguage;
 
 	function switchLocale(event) {
+		// prevent showing stale data in the wrong language when switching languages
+		$postStatus = 'init';
+		$preStatus = 'init';
 		$language = event.target.value;
-		$languageChange = '';
+		$languageChange = Date.now();
 	}
 </script>
 

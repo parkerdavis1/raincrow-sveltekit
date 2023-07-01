@@ -24,6 +24,8 @@
 		viewingPost,
 		options
 	} from '$lib/store.js';
+	import { languageChange } from '$lib/store.js';
+	$: console.log('languageChange', $languageChange);
 
 	// Other Functions
 	const menuEsc = (event) => {
@@ -43,6 +45,7 @@
 		setupI18n({ withLocale: $language });
 		if (browser) {
 			document.cookie = `lang=${$language}; path=/; samesite=strict`;
+			console.log('updated cookie');
 		}
 	}
 	// Initialize options store with cookie data from load function
@@ -50,10 +53,8 @@
 		$options = JSON.parse(data.options);
 	}
 	// Update options cookie when options store changes
-	$: {
-		if (browser) {
-			document.cookie = `options=${JSON.stringify($options)}; path='/'; samesite=strict`;
-		}
+	$: if (browser) {
+		document.cookie = `options=${JSON.stringify($options)}; path='/'; samesite=strict`;
 	}
 </script>
 

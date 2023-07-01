@@ -4,7 +4,12 @@
 	import { validateLatlon } from '$lib/services/validation';
 
 	// let locateButtonText = $_('pre_submit.locate');
-	let locateError = false;
+	let locateError = {
+		error: false,
+		code: 0,
+		message: ''
+	};
+	let disableLocateButton = false;
 
 	// Validation
 	$: if (validateLatlon($preFormInput.latlon)) {
@@ -22,15 +27,20 @@
 		event.preventDefault();
 		const options = {
 			enableHighAccuracy: false,
-			timeout: 3000,
+			timeout: 10000,
 			maximumAge: 1800000
 		};
 		const error = (error) => {
-			// locateButtonText = $_('pre_submit.locate_error', {
-			// 	values: { errorCode: error.code, errorMessage: error.message }
-			// });
-			locateError = true;
-			console.warn(`ERROR(${error.code}): ${error.message}`);
+			locateError = {
+				error: true,
+				code: error.code,
+				message: error.message
+			};
+			disableLocateButton = true;
+			console.warn(`ERROR (${error.code}): ${error.message}`);
+			setTimeout(() => {
+				disableLocateButton = false;
+			}, 4000);
 		};
 		const success = (position) => {
 			console.log(position.coords);
@@ -62,10 +72,21 @@
 	{/if}
 </div>
 
-<button class="preView-button locate button" on:click={handleLocate}>
-	{#if locateError}
-		{$_('pre_submit.locate_error')}
-	{:else}
-		{$_('pre_submit.locate')}
-	{/if}
+<button class="preView-button locate button" disabled={disableLocateButton} on:click={handleLocate}>
+	{$_('pre_submit.locate')}
 </button>
+{#if locateError.error}
+	<span class="locate-error">
+		{#if locateError.code === 1}{$_('pre_submit.locate_error')} {/if}({locateError.message})
+	</span>
+{/if}
+
+<style>
+	.locate-error {
+		display: block;
+		grid-column: content-start / content-end;
+		text-align: center;
+		font-size: small;
+		color: var(--error-text);
+	}
+</style>

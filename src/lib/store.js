@@ -5,9 +5,8 @@ import { renderCopyText } from '$lib/services/renderCopyText';
 export const options = writable();
 
 // Language preference
-// let defaultLanguage = 'en';
 export const language = writable('');
-export const languageChange = writable('');
+export const languageChange = writable(Date.now());
 
 // Daily request count
 export const dailyCount = writable(getWithExpiry('dailyCount') || '0');
@@ -102,12 +101,15 @@ export let postTimes = writable({});
 
 export let preStatus = writable('init');
 export let preErrorText = writable('Error');
-export let preFormInput = writable({
-	latlon: '',
-	date: '',
-	startTime: '',
-	duration: 0
-});
+export let preFormInput = writable(
+	JSON.parse(sessionStorage.getItem('preFormInput')) || {
+		latlon: '',
+		date: '',
+		startTime: '',
+		duration: 0
+	}
+);
+preFormInput.subscribe((value) => (sessionStorage.preFormInput = JSON.stringify(value)));
 
 export let preFormErrors = writable({
 	latlon: false,

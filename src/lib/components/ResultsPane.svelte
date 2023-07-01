@@ -17,8 +17,10 @@
 			class:error-pane={isPost ? $postStatus === 'error' : $preStatus === 'error'}
 		>
 			<div>
-				{#if isPost ? $postStatus === 'init' : $preStatus === 'init'}
+				{#if isPost && $postStatus === 'init'}
 					<p>{$_('submitted.help')}</p>
+				{:else if !isPost && $preStatus === 'init'}
+					<p>{$_('pre_submit.location_service_error')}</p>
 				{:else if isPost ? $postStatus === 'loading' : $preStatus === 'loading'}
 					<div class="loading-text">{$_('global_ui.loading')}</div>
 				{:else if isPost ? $postStatus === 'error' : $preStatus === 'error'}

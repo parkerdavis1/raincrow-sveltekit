@@ -5,7 +5,9 @@
 	import { preFormInput, preFormErrors } from '$lib/store';
 	import { validateStartTime } from '$lib/services/validation';
 
-	$preFormInput.startTime = currentDateTime.startOf('hour').format('HH:mm');
+	if (!$preFormInput.startTime) {
+		$preFormInput.startTime = currentDateTime.startOf('hour').format('HH:mm');
+	}
 
 	// Validation
 	$: if (validateStartTime($preFormInput.startTime)) {

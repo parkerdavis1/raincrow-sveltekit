@@ -30,11 +30,15 @@
 
 	// When language changes, resubmit form to get weather in correct language
 	let submitButton;
-	$: if ($languageChange) {
-		console.log('language change');
+	function clickSubmitButton() {
+		// on initial view render, this function runs before the button is rendered
 		if (submitButton) {
 			submitButton.click();
 		}
+	}
+
+	$: if ($languageChange) {
+		clickSubmitButton(); // function used to prevent submitButton rendering to trigger reactive statement
 	}
 
 	// Submit & Error Handling

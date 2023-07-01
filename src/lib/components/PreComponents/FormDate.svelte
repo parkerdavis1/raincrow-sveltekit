@@ -5,7 +5,9 @@
 	import { _ } from '$lib/services/i18n';
 	import { validateDate } from '$lib/services/validation';
 
-	$preFormInput.date = currentDateTime.format('YYYY-MM-DD');
+	if (!$preFormInput.date) {
+		$preFormInput.date = currentDateTime.format('YYYY-MM-DD');
+	}
 
 	// Validation
 	$: if (validateDate($preFormInput.date)) {

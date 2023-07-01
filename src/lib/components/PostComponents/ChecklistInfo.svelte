@@ -1,16 +1,18 @@
 <script>
-	import { postChecklistInfo } from '$lib/store';
+	import { postChecklistInfo, postStatus } from '$lib/store';
 </script>
 
 <div class="checklist-info full-width">
-	{#if $postChecklistInfo.checklistId}
-		<p>{$postChecklistInfo.checklistId}</p>
-	{/if}
-	{#if $postChecklistInfo.locationName}
-		<p>{$postChecklistInfo.locationName}</p>
-	{/if}
-	{#if $postChecklistInfo.startTime}
-		<p>{$postChecklistInfo.startTime}</p>
+	{#if $postStatus === 'show'}
+		{#if $postChecklistInfo.checklistId}
+			<p>{$postChecklistInfo.checklistId}</p>
+		{/if}
+		{#if $postChecklistInfo.locationName}
+			<p>{$postChecklistInfo.locationName}</p>
+		{/if}
+		{#if $postChecklistInfo.startTime}
+			<p>{$postChecklistInfo.startTime}</p>
+		{/if}
 	{/if}
 </div>
 

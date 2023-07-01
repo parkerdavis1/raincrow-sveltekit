@@ -1,8 +1,8 @@
 <script>
 	import { enhance, applyAction } from '$app/forms';
 	import { dev } from '$app/environment';
-	import { onMount } from 'svelte';
-	import { browser } from '$app/environment';
+	// import { onMount } from 'svelte';
+	// import { browser } from '$app/environment';
 	import { _ } from '$lib/services/i18n';
 	import {
 		postStatus,
@@ -31,11 +31,14 @@
 
 	// When language changes, resubmit form to get weather in correct language
 	let submitButton;
-	$: if ($languageChange) {
-		console.log('language change');
+	function clickSubmitButton() {
+		// on initial view render, this function runs before the button is rendered
 		if (submitButton) {
 			submitButton.click();
 		}
+	}
+	$: if ($languageChange) {
+		clickSubmitButton(); // function used to prevent submitButton rendering to trigger reactive statement
 	}
 
 	const submitFunction = ({ formElement, formData, action, cancel, submitter }) => {
