@@ -51,7 +51,7 @@
 		/* grid-row: -3; */
 		/* border: 1px red solid; */
 		grid-row: -1;
-		padding: 0.5rem 0.75rem;
+		padding: 1rem;
 		position: relative;
 	}
 
@@ -77,7 +77,7 @@
 		padding: 0.25rem;
 
 		position: fixed;
-		bottom: 0.5rem;
+		bottom: 1rem;
 	}
 
 	.options-container {
@@ -86,7 +86,7 @@
 		width: 50px;
 
 		position: absolute;
-		right: 0.5rem;
+		right: 1rem;
 	}
 
 	.about-button {
