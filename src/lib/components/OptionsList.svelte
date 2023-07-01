@@ -109,10 +109,6 @@
 </div>
 
 <style>
-	.options-list {
-		overflow: scroll;
-	}
-
 	.option-item {
 		padding: 5px 5px;
 		width: 100%;

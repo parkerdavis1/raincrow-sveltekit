@@ -33,14 +33,14 @@
 		height: fit-content;
 		color: var(--daily-request-text);
 		font-size: 0.9rem;
-		padding: 0 0.5rem;
+		/* padding: 0 0.5rem; */
 		justify-self: end;
 		align-self: center;
 	}
 
 	p {
-		margin-top: 0.5rem;
-		margin-bottom: 0.5rem;
+		/* margin-top: 0.5rem; */
+		/* margin-bottom: 0.5rem; */
 	}
 
 	.error-pane {

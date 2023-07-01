@@ -1,15 +1,15 @@
 <script>
 	import { _ } from '$lib/services/i18n';
-	import { preFormInput, preFormErrors } from '$lib/store';
+	import { preFormInput, preFormValidationErrors } from '$lib/store';
 	import { validateDuration } from '$lib/services/validation';
 
 	$: if (validateDuration($preFormInput.duration)) {
-		$preFormErrors.duration = false;
+		$preFormValidationErrors.duration = false;
 	}
 
 	const durationFocusout = () => {
 		if (!validateDuration($preFormInput.duration)) {
-			$preFormErrors.duration = true;
+			$preFormValidationErrors.duration = true;
 		}
 	};
 </script>
@@ -28,9 +28,9 @@
 		min="0"
 		bind:value={$preFormInput.duration}
 		on:focusout={durationFocusout}
-		class:input-error={$preFormErrors.duration}
+		class:input-error={$preFormValidationErrors.duration}
 	/>
-	{#if $preFormErrors.duration}
+	{#if $preFormValidationErrors.duration}
 		<span class="error-message">{$_('pre_submit.duration_error')}</span>
 	{/if}
 </div>

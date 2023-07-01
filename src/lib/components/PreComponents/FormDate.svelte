@@ -1,7 +1,7 @@
 <script>
 	export let currentDateTime;
 
-	import { preFormInput, preFormErrors } from '$lib/store';
+	import { preFormInput, preFormValidationErrors } from '$lib/store';
 	import { _ } from '$lib/services/i18n';
 	import { validateDate } from '$lib/services/validation';
 
@@ -11,12 +11,12 @@
 
 	// Validation
 	$: if (validateDate($preFormInput.date)) {
-		$preFormErrors.date = false;
+		$preFormValidationErrors.date = false;
 	}
 
 	const dateFocusout = () => {
 		if (!validateDate($preFormInput.date)) {
-			$preFormErrors.date = true;
+			$preFormValidationErrors.date = true;
 		}
 	};
 </script>
@@ -31,9 +31,9 @@
 		id="date"
 		bind:value={$preFormInput.date}
 		on:focusout={dateFocusout}
-		class:input-error={$preFormErrors.date}
+		class:input-error={$preFormValidationErrors.date}
 	/>
-	{#if $preFormErrors.date}
+	{#if $preFormValidationErrors.date}
 		<span class="error-message">{$_('pre_submit.date_error')}</span>
 	{/if}
 </div>

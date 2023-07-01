@@ -71,9 +71,9 @@
 		<PreView />
 	{/if}
 
-	{#if !$dailyCountError}
+	<!-- {#if !$dailyCountError}
 		<DailyRequestPane />
-	{/if}
+	{/if} -->
 
 	<Footer />
 
@@ -101,7 +101,8 @@
 <!-- --------STYLE-------- -->
 <style>
 	.vertical-grid-container {
-		height: 90vh;
+		height: 100vh;
+		height: 100svh;
 		width: 100%;
 		display: grid;
 		grid-template-rows: auto auto 1fr auto auto;
@@ -111,5 +112,6 @@
 		filter: blur(10px);
 		transition: filter 500ms;
 		pointer-events: none;
+		overflow: hidden;
 	}
 </style>

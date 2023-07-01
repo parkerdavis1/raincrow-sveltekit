@@ -6,7 +6,7 @@
 	import { _ } from '$lib/services/i18n';
 </script>
 
-<div class="options-container">
+<div class="menu-container options-container">
 	<div class="options-scroll">
 		{#if $viewingPost}
 			{#if $postStatus === 'show' || $postStatus === 'loading'}
@@ -30,27 +30,14 @@
 
 <style>
 	.options-container {
-		background-color: var(--background-color);
-		position: fixed;
-		width: 400px;
-		max-width: 95%;
-		max-height: 95vh;
-
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		border: 1px var(--border-color) solid;
-		padding: 1rem;
-
-		display: grid;
-		grid-template-rows: 1fr auto;
-		grid-template-columns: 1fr;
+		width: 450px;
 		justify-items: center;
-		/* overflow: scroll; */
 	}
 
 	.options-scroll {
 		overflow: scroll;
+		padding-inline: 1rem;
+		width: 100%;
 	}
 
 	.done-button {

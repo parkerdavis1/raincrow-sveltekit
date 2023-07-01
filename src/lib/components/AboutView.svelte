@@ -4,7 +4,7 @@
 	import AboutContent from '$lib/components/AboutContent.svelte';
 </script>
 
-<div class="about-container">
+<div class="menu-container">
 	<!-- <button class="menu-exit" on:click={()=> $aboutView = false}>🆇</button> -->
 
 	<div class="scroll">
@@ -21,23 +21,7 @@
 <style>
 	.scroll {
 		overflow: scroll;
-		padding: 1rem 2rem;
-	}
-
-	.about-container {
-		background-color: var(--background-color);
-		position: fixed;
-		width: 500px;
-		max-width: 95%;
-		max-height: 88vh;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		border: 1px black solid;
-		display: grid;
-		grid-template-columns: 1fr;
-		grid-template-rows: 1fr auto;
-		padding-block: 1rem;
+		padding-inline: 1rem;
 	}
 
 	.center {

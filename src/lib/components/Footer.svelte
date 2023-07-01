@@ -1,7 +1,8 @@
 <script>
 	import LocaleSwitcher from '$lib/components/LocaleSwitcher.svelte';
+	import DailyRequestPane from '$lib/components/DailyRequestPane.svelte';
 
-	import { optionsView, aboutView, language } from '$lib/store';
+	import { optionsView, aboutView, dailyCountError } from '$lib/store';
 	import { _ } from '$lib/services/i18n';
 
 	const toggleOptions = () => {
@@ -17,13 +18,18 @@
 	<div>
 		<button class="about-button" on:click={toggleAbout}>{$_('nav.about')}</button>
 	</div>
-	<div class="footer-right">
+	<div>
+		{#if !$dailyCountError}
+			<DailyRequestPane />
+		{/if}
+	</div>
+	<div class="options-container">
 		<!-- <button on:click={toggleOptions}>{$_('nav.options')}</button>
         <LocaleSwitcher value={$language}/> -->
 		<button
 			aria-label="Options Button"
 			title="Options"
-			class="settings-button"
+			class="options-button"
 			on:click={toggleOptions}
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"
@@ -38,25 +44,26 @@
 
 <style>
 	footer {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-end;
-		margin: 1rem 1rem 0;
-		grid-row: -3;
+		/* display: flex; */
+		/* justify-content: space-between; */
+		/* align-items: flex-end; */
+		/* margin: 1rem 1rem 0; */
+		/* grid-row: -3; */
+		/* border: 1px red solid; */
+		grid-row: -1;
+		padding: 0.5rem 0.75rem;
+		position: relative;
 	}
 
 	button {
-		/* background-color: rgba(100,108,255, 0.2); */
 		color: var(--text-color);
-		/* border: 1px #858585 solid; */
-		padding: 3px;
 		cursor: pointer;
-		margin: 1rem;
+		margin: 0;
+		padding: 0;
 		display: flex;
 	}
 
 	svg {
-		/* color: #444; */
 		color: var(--text-color);
 	}
 
@@ -64,15 +71,22 @@
 		background-color: var(--options-button-hover);
 	}
 
-	.settings-button {
+	.options-button {
 		border-radius: 50%;
 		background-color: var(--nav-bg);
-		/* border: 1px #444 solid; */
+		padding: 0.25rem;
+
+		position: fixed;
+		bottom: 0.5rem;
 	}
 
-	.footer-right {
+	.options-container {
 		display: flex;
 		align-items: center;
+		width: 50px;
+
+		position: absolute;
+		right: 0.5rem;
 	}
 
 	.about-button {

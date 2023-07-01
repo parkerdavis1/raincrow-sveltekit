@@ -22,7 +22,7 @@
 		preParsedWeather,
 		preErrorText,
 		preFormInput,
-		preFormErrors
+		preFormValidationErrors
 	} from '$lib/store';
 
 	// Date Time
@@ -58,7 +58,7 @@
 				// render error text
 				$preErrorText = 'Server error: check ';
 				result.data.errors.forEach((error) => {
-					$preFormErrors[error] = true;
+					$preFormValidationErrors[error] = true;
 					$preErrorText += error + ', ';
 				});
 				$preErrorText = $preErrorText.slice(0, $preErrorText.length - 2);
@@ -83,11 +83,11 @@
 
 	// Form Validation
 	$: formIsValid =
-		!$preFormErrors.latlon &&
+		!$preFormValidationErrors.latlon &&
 		$preFormInput.latlon.length > 0 &&
-		!$preFormErrors.date &&
-		!$preFormErrors.startTime &&
-		!$preFormErrors.duration &&
+		!$preFormValidationErrors.date &&
+		!$preFormValidationErrors.startTime &&
+		!$preFormValidationErrors.duration &&
 		$preFormInput.duration >= 0;
 </script>
 

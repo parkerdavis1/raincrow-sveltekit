@@ -150,16 +150,6 @@
     margin: auto;
   }
   
-  .menu-exit {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    padding: 0;
-    font-size: 2rem;
-    cursor: pointer;
-    display: flex;
-  }
-  
   .error-message {
     font-size: small;
     color: var(--error-text);
@@ -178,4 +168,33 @@
 		color: var(--text-color);
 		background-color: var(--error-pane-bg);
 		padding: 1rem;
+  }
+
+  .menu-exit {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 0;
+    font-size: 2rem;
+    cursor: pointer;
+    display: flex;
+  }
+
+  .menu-container {
+		background-color: var(--background-color);
+		position: fixed;
+		max-width: 95%;
+		max-height: 85vh; /* if svh not supported */
+		max-height: 95svh;
+    width: 500px;
+    top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		border: 1px var(--border-color) solid;
+		display: grid;
+		grid-template-rows: 1fr auto;
+		grid-template-columns: 1fr;
+    padding-top: 1rem;
+		padding-bottom: 1rem;
+		padding-block: 1rem;
   }

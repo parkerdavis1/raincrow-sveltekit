@@ -1,9 +1,17 @@
 <script>
 	import { _ } from '$lib/services/i18n';
-	import { preFormInput, preFormErrors } from '$lib/store';
+	import { preFormInput, preFormValidationErrors, preStatus } from '$lib/store';
 	import { validateLatlon } from '$lib/services/validation';
 
-	// let locateButtonText = $_('pre_submit.locate');
+	// Validation
+	$: if (validateLatlon($preFormInput.latlon)) {
+		$preFormValidationErrors.latlon = false;
+	}
+
+	$: if ($preStatus === 'loading' || $preStatus === 'show') {
+		locateError.error = false;
+	}
+
 	let locateError = {
 		error: false,
 		code: 0,
@@ -11,14 +19,9 @@
 	};
 	let disableLocateButton = false;
 
-	// Validation
-	$: if (validateLatlon($preFormInput.latlon)) {
-		$preFormErrors.latlon = false;
-	}
-
 	const latlonFocusout = () => {
 		if (!validateLatlon($preFormInput.latlon)) {
-			$preFormErrors.latlon = true;
+			$preFormValidationErrors.latlon = true;
 		}
 	};
 
@@ -65,9 +68,9 @@
 		id="latlon"
 		bind:value={$preFormInput.latlon}
 		on:focusout={latlonFocusout}
-		class:input-error={$preFormErrors.latlon}
+		class:input-error={$preFormValidationErrors.latlon}
 	/>
-	{#if $preFormErrors.latlon}
+	{#if $preFormValidationErrors.latlon}
 		<span class="error-message">{$_('pre_submit.coordinates_error')}</span>
 	{/if}
 </div>

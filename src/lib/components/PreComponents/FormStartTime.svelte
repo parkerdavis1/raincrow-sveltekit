@@ -2,7 +2,7 @@
 	export let currentDateTime;
 
 	import { _ } from '$lib/services/i18n';
-	import { preFormInput, preFormErrors } from '$lib/store';
+	import { preFormInput, preFormValidationErrors } from '$lib/store';
 	import { validateStartTime } from '$lib/services/validation';
 
 	if (!$preFormInput.startTime) {
@@ -11,12 +11,12 @@
 
 	// Validation
 	$: if (validateStartTime($preFormInput.startTime)) {
-		$preFormErrors.startTime = false;
+		$preFormValidationErrors.startTime = false;
 	}
 
 	const startTimeFocusout = () => {
 		if (!validateStartTime($preFormInput.startTime)) {
-			$preFormErrors.startTime = true;
+			$preFormValidationErrors.startTime = true;
 		}
 	};
 </script>
@@ -31,9 +31,9 @@
 		id="startTime"
 		bind:value={$preFormInput.startTime}
 		on:focusout={startTimeFocusout}
-		class:input-error={$preFormErrors.startTime}
+		class:input-error={$preFormValidationErrors.startTime}
 	/>
-	{#if $preFormErrors.startTime}
+	{#if $preFormValidationErrors.startTime}
 		<span class="error-message">{$_('pre_submit.start_time_error')}</span>
 	{/if}
 </div>

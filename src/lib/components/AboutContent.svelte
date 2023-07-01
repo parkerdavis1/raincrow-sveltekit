@@ -82,6 +82,7 @@
 		color: var(--button-text-color);
 		padding: 3px 6px;
 		border-radius: 5px;
+		white-space: nowrap;
 	}
 
 	:global(span.highlight) {

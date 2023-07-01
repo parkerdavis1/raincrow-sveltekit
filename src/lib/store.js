@@ -111,7 +111,7 @@ export let preFormInput = writable(
 );
 preFormInput.subscribe((value) => (sessionStorage.preFormInput = JSON.stringify(value)));
 
-export let preFormErrors = writable({
+export let preFormValidationErrors = writable({
 	latlon: false,
 	date: false,
 	startTime: false,
