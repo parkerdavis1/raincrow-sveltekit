@@ -64,27 +64,12 @@
 
 <div class="vertical-grid-container" class:blur={$optionsView || $aboutView}>
 	<Header />
-
 	{#if $viewingPost}
 		<PostView />
 	{:else}
 		<PreView />
 	{/if}
-
-	<!-- {#if !$dailyCountError}
-		<DailyRequestPane />
-	{/if} -->
-
 	<Footer />
-
-	<!-- TESTING MOCK API -->
-	<!-- {#if form?.postWeather}
-		<div>
-			<h1>TEST AREA</h1>
-			<h2>Post Weather</h2>
-			<pre>{JSON.stringify(form.postWeather, null, 4)}</pre>
-		</div>
-	{/if} -->
 </div>
 
 <!-- --------ABOUT MENU-------- -->

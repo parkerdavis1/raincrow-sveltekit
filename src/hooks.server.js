@@ -1,4 +1,12 @@
+import { sequence } from '@sveltejs/kit/hooks';
+import * as Sentry from '@sentry/sveltekit';
 import { PUBLIC_USE_MOCK_API } from '$env/static/public';
+
+Sentry.init({
+	dsn: 'https://431781bc3e3b4976b9613de3985fb110@o4505457000120320.ingest.sentry.io/4505457003266048',
+	tracesSampleRate: 1
+});
+
 const useMock = PUBLIC_USE_MOCK_API === 'TRUE' ? true : false;
 
 export async function handleFetch({ request, fetch }) {
@@ -21,3 +29,5 @@ export async function handleFetch({ request, fetch }) {
 	}
 	return fetch(request);
 }
+export const handleError = Sentry.handleErrorWithSentry();
+export const handle = sequence(Sentry.sentryHandle());

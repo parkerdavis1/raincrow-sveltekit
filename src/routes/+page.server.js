@@ -22,12 +22,6 @@ export function load({ cookies }) {
 		optionsCookie = cookies.get('options');
 	}
 
-	// // ---- DAILY COUNT ----
-	// let dailyCountCookie = cookies.get('dailyCount');
-	// if (!dailyCountCookie) {
-	// 	cookies.set('dailyCount', 0, { path: '/', httpOnly: true, samesite: 'strict' });
-	// }
-
 	return {
 		lang: languageCookie,
 		options: optionsCookie
