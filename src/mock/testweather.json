@@ -1,0 +1,30 @@
+{
+	"lat": 52.2297,
+	"lon": 21.0122,
+	"timezone": "Europe/Warsaw",
+	"timezone_offset": 3600,
+	"data": [
+		{
+			"dt": 1645888976,
+			"feels_like": 276.44,
+			"dew_point": 272.88,
+			"wind_gusts": 124,
+			"uvi": 0.06,
+			"visibility": 10000,
+			"weather": [
+				{
+					"id": 800,
+					"main": "Clear",
+					"description": "clear sky",
+					"icon": "01d"
+				},
+				{
+					"id": 800,
+					"main": "Clear",
+					"description": "cloudy",
+					"icon": "04d"
+				}
+			]
+		}
+	]
+}

@@ -16,5 +16,8 @@ export const dataRange = (dataStart, dataEnd) => {
 	} else if (dataStart || dataStart === 0) {
 		// if no end data, and there is a start, even if it is zero, return start
 		return dataStart;
-	} else throw Error('No Data Passed into Data Range'); // else throw error
+	} else {
+		// throw Error('No Data Passed into Data Range'); // else throw error
+		return 'Unknown ';
+	}
 };

@@ -23,8 +23,9 @@ export async function handleFetch({ request, fetch }) {
 			// return fetch('/api/error'); // for errors
 		}
 		if (request.url.startsWith('https://api.openweathermap.org')) {
-			return fetch('/api/weather');
+			// return fetch('/api/weather');
 			// return fetch('/api/error'); // for errors
+			return fetch('/api/testweather');
 		}
 	}
 	return fetch(request);
