@@ -45,7 +45,6 @@
 	const submitFunction = ({ formElement, formData, action, cancel, submitter }) => {
 		// check for errors
 		if (!formIsValid || $dailyCountError) {
-			console.log('CANCELLING!');
 			cancel();
 			return;
 		}

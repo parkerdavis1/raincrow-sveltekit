@@ -41,7 +41,7 @@
 				message: error.message
 			};
 			disableLocateButton = true;
-			console.warn(`ERROR (${error.code}): ${error.message}`);
+			throw new Error(`ERROR (${error.code}): ${error.message}`);
 			setTimeout(() => {
 				disableLocateButton = false;
 			}, 4000);

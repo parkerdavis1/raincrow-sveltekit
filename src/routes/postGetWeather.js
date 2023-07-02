@@ -3,6 +3,7 @@ import { getTimezoneOffset, getWeatherForStartAndEnd } from '$lib/services/weath
 import { appendCalculatedUtcTimes } from '$lib/services/weather/appendCalculatedUtcTimes';
 import { validateChecklistId } from '$lib/services/validation';
 import { fail } from '@sveltejs/kit';
+import * as Sentry from '@sentry/sveltekit';
 
 export default async function postGetWeather({ fetch, request, cookies }) {
 	const lang = cookies.get('lang');
@@ -59,6 +60,7 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 	const checklistResponse = await getChecklistInfo(checklistId, fetch); // svelte fetch is used so it can be intercepted by the server hooks
 	// if (checklistResponse.error) return { postError: checklistResponse.error }; // Return errors if they exist
 	if (checklistResponse.error) {
+		Sentry.captureException(checklistResponse.error);
 		return fail(400, {
 			type: 'checklistResponse',
 			message: checklistResponse.error,
@@ -74,24 +76,26 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 	// ---- Get timezone offset ----
 	dayjsTimes = await getTimezoneOffset(postWeather, dayjsTimes, lang, fetch);
 	// if (dayjsTimes.error) return { postError: dayjsTimes.error }; // Return errors if they exist
-	if (dayjsTimes.error)
+	if (dayjsTimes.error) {
 		return fail(400, {
 			type: 'openweatherResponse',
 			message: dayjsTimes.error,
 			checklistId
 		});
+	}
 
 	dayjsTimes = appendCalculatedUtcTimes(dayjsTimes); // Append UTC Unix Times
 
 	// ---- Query weather ----
 	postWeather.weatherResults = await getWeatherForStartAndEnd(postWeather, dayjsTimes, lang, fetch);
 	// if (postWeather.weatherResults.error) return { postError: postWeather.weatherResults.error }; // Return errors if they exist
-	if (postWeather.weatherResults.error)
+	if (postWeather.weatherResults.error) {
 		return fail(400, {
 			type: 'openweatherResponse',
 			message: postWeather.weatherResults.error,
 			checklistId
 		});
+	}
 
 	// ---- Append offset to postWeather ----
 	postWeather.timeZoneOffset = dayjsTimes.offset;

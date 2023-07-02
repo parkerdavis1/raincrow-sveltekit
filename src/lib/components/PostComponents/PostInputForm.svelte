@@ -50,14 +50,12 @@
 
 		return async ({ update, result }) => {
 			if (result.type === 'failure') {
-				console.log('inside failure if statement');
 				$postStatus = 'error';
 				if (result.data.type === 'checklistValidate') {
 					$postErrorText = $_('submitted.invalid_checklist_id');
 				} else {
 					$postErrorText = $_(result.data.message);
 				}
-				// return input
 				$postChecklistId = result.data.checklistId;
 				return;
 			}

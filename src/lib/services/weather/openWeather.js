@@ -1,5 +1,6 @@
 import dayjs from '$lib/services/dayjsExtended';
 import { OPENWEATHER_KEY } from '$env/static/private';
+import * as Sentry from '@sentry/sveltekit';
 
 async function queryOpenWeather(unixTime, lat, lon, lang = 'en', fetch) {
 	// async function queryOpenWeather(unixTime, lat, lon, lang = 'en') {
@@ -27,6 +28,7 @@ export async function getTimezoneOffset(infoObj, dayjsTimes, lang, fetch) {
 		);
 		return { ...dayjsTimes, offset: timezoneResponse.timezone_offset };
 	} catch (error) {
+		Sentry.captureException(error);
 		return { error };
 	}
 }
@@ -66,6 +68,7 @@ export async function getWeatherForStartAndEnd(infoObj, dayjsTimes, lang, fetch)
 			);
 		}
 	} catch (error) {
+		Sentry.captureException(error);
 		return { error };
 	}
 	return weatherResults;
