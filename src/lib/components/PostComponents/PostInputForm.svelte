@@ -60,7 +60,7 @@
 				return;
 			}
 
-			$postParsedWeather = parseWeather(result.data.postWeather); // timezone offset?
+			$postParsedWeather = parseWeather(result.data.postWeather);
 			$postChecklistInfo = result.data.postWeather.checklistInfo;
 			$postStatus = 'show';
 			incrementDailyCount();

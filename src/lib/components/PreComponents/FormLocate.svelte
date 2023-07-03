@@ -41,10 +41,10 @@
 				message: error.message
 			};
 			disableLocateButton = true;
-			throw new Error(`ERROR (${error.code}): ${error.message}`);
 			setTimeout(() => {
 				disableLocateButton = false;
 			}, 4000);
+			throw new Error(`ERROR (${error.code}): ${error.message}`);
 		};
 		const success = (position) => {
 			console.log(position.coords);
