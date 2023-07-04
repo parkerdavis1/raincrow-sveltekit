@@ -1,8 +1,19 @@
 import { writable, derived } from 'svelte/store';
 import { setWithExpiry, getWithExpiry } from '$lib/services/limiter';
 import { renderCopyText } from '$lib/services/renderCopyText';
+import { defaultOptions } from '$lib/services/defaults';
+import { browser } from '$app/environment';
 
-export const options = writable();
+// export const options = writable();
+export const options = writable(
+	JSON.parse(localStorage.getItem('storedOptions')) || defaultOptions
+);
+// When options change, change the local store
+options.subscribe((value) => {
+	if (browser) {
+		localStorage.storedOptions = JSON.stringify(value);
+	}
+});
 
 // Language preference
 export const language = writable('');

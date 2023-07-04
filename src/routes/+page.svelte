@@ -48,14 +48,14 @@
 			console.log('updated cookie');
 		}
 	}
-	// Initialize options store with cookie data from load function
-	if (!$options) {
-		$options = JSON.parse(data.options);
-	}
-	// Update options cookie when options store changes
-	$: if (browser) {
-		document.cookie = `options=${JSON.stringify($options)}; path='/'; samesite=strict`;
-	}
+	// // Initialize options store with cookie data from load function
+	// if (!$options) {
+	// 	$options = JSON.parse(data.options);
+	// }
+	// // Update options cookie when options store changes
+	// $: if (browser) {
+	// 	document.cookie = `options=${JSON.stringify($options)}; path='/'; samesite=strict`;
+	// }
 </script>
 
 <!-- --------START OF APP-------- -->

@@ -12,19 +12,19 @@ export function load({ cookies }) {
 	}
 
 	// ---- OPTIONS -----
-	let optionsCookie = cookies.get('options');
-	if (!optionsCookie) {
-		cookies.set('options', JSON.stringify(defaultOptions), {
-			path: '/',
-			httpOnly: false,
-			samesite: 'strict'
-		});
-		optionsCookie = cookies.get('options');
-	}
+	// let optionsCookie = cookies.get('options');
+	// if (!optionsCookie) {
+	// 	cookies.set('options', JSON.stringify(defaultOptions), {
+	// 		path: '/',
+	// 		httpOnly: false,
+	// 		samesite: 'strict'
+	// 	});
+	// 	optionsCookie = cookies.get('options');
+	// }
 
 	return {
-		lang: languageCookie,
-		options: optionsCookie
+		lang: languageCookie
+		// options: optionsCookie
 	};
 }
 
