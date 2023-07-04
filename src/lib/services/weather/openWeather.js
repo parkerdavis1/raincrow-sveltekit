@@ -2,7 +2,7 @@ import dayjs from '$lib/services/dayjsExtended';
 import { OPENWEATHER_KEY } from '$env/static/private';
 import * as Sentry from '@sentry/sveltekit';
 
-async function queryOpenWeather(unixTime, lat, lon, lang = 'en', fetch) {
+async function queryOpenWeather(unixTime, lat, lon, lang, fetch) {
 	// async function queryOpenWeather(unixTime, lat, lon, lang = 'en') {
 	// submit OpenWeather query at time and location
 	const baseUrl = 'https://api.openweathermap.org/data/3.0/onecall/timemachine';
@@ -16,7 +16,7 @@ async function queryOpenWeather(unixTime, lat, lon, lang = 'en', fetch) {
 	} else throw `${response.statusText} (code: ${response.status})`;
 }
 
-export async function getTimezoneOffset(infoObj, dayjsTimes, lang, fetch) {
+export async function getTimezoneOffset(infoObj, dayjsTimes, fetch) {
 	try {
 		console.log('-----Timezone Query:-----');
 		const timezoneResponse = await queryOpenWeather(
@@ -33,7 +33,7 @@ export async function getTimezoneOffset(infoObj, dayjsTimes, lang, fetch) {
 	}
 }
 
-export async function getWeatherForStartAndEnd(infoObj, dayjsTimes, lang, fetch) {
+export async function getWeatherForStartAndEnd(infoObj, dayjsTimes, fetch) {
 	let weatherResults = {
 		start: null,
 		end: null

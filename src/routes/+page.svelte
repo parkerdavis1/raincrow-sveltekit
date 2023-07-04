@@ -1,5 +1,5 @@
 <script>
-	export let data;
+	// export let data;
 
 	import { browser } from '$app/environment';
 
@@ -24,20 +24,22 @@
 		viewingPost,
 		options
 	} from '$lib/store.js';
-	import { languageChange } from '$lib/store.js';
-	$: console.log('languageChange', $languageChange);
 
-	// Other Functions
-	const menuEsc = (event) => {
-		if (event.key === 'Escape') {
-			$optionsView = false;
-			$aboutView = false;
-		}
-	};
+	// ---- LANGUAGE ----
 
-	// Initialize language store with cookie data from load function
+	// Get browser's preferred language
+	function getBrowserLanguage() {
+		let browserLanguage = window.navigator.language.slice(0, 2) ?? '';
+		if (browserLanguage === 'fr' || browserLanguage === 'es') {
+			return browserLanguage;
+		} else return 'en';
+	}
+
+	// if language store is not initialized, use the browser's preferred language
 	if (!$language) {
-		$language = data.lang;
+		if (browser) {
+			$language = getBrowserLanguage();
+		}
 	}
 
 	// Update setupI18n and update lang cookie when language store changes
@@ -45,17 +47,16 @@
 		setupI18n({ withLocale: $language });
 		if (browser) {
 			document.cookie = `lang=${$language}; path=/; samesite=strict`;
-			console.log('updated cookie');
 		}
 	}
-	// // Initialize options store with cookie data from load function
-	// if (!$options) {
-	// 	$options = JSON.parse(data.options);
-	// }
-	// // Update options cookie when options store changes
-	// $: if (browser) {
-	// 	document.cookie = `options=${JSON.stringify($options)}; path='/'; samesite=strict`;
-	// }
+
+	// ---- Other Functions ----
+	const menuEsc = (event) => {
+		if (event.key === 'Escape') {
+			$optionsView = false;
+			$aboutView = false;
+		}
+	};
 </script>
 
 <!-- --------START OF APP-------- -->

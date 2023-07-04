@@ -39,7 +39,7 @@ export default async function preGetWeather({ fetch, request, cookies }) {
 			start: null,
 			end: null
 		},
-		language: 'en',
+		language: lang,
 		timeZoneOffset: null
 	};
 
@@ -72,12 +72,12 @@ export default async function preGetWeather({ fetch, request, cookies }) {
 	dayjsTimes.end.localTime = dayjs(dayjsTimes.start.localTime).add(duration, 'minute');
 
 	// ---- Get timezone offset ----
-	dayjsTimes = await getTimezoneOffset(preWeather, dayjsTimes, lang, fetch);
+	dayjsTimes = await getTimezoneOffset(preWeather, dayjsTimes, fetch);
 	if (dayjsTimes.error) return { preError: dayjsTimes.error };
 	dayjsTimes = appendCalculatedUtcTimes(dayjsTimes);
 
 	// ---- Query weather ----
-	preWeather.weatherResults = await getWeatherForStartAndEnd(preWeather, dayjsTimes, lang, fetch);
+	preWeather.weatherResults = await getWeatherForStartAndEnd(preWeather, dayjsTimes, fetch);
 	if (preWeather.weatherResults.error) return { preError: preWeather.weatherResults.error };
 
 	// ---- Append offset to preWeather ----

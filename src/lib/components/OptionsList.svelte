@@ -104,7 +104,7 @@
 	<hr />
 	<div class="option-item">
 		<label for="language">{$_('options.language')}</label>
-		<LocaleSwitcher value={$language} />
+		<LocaleSwitcher />
 	</div>
 </div>
 

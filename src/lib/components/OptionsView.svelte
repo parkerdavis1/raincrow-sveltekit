@@ -1,14 +1,15 @@
 <script>
 	import WeatherResults from '$lib/components/WeatherResults.svelte';
 	import OptionsList from '$lib/components/OptionsList.svelte';
+	import ResultsPane from '$lib/components/ResultsPane.svelte';
 
-	import { postStatus, preStatus, optionsView, viewingPost } from '$lib/store';
+	import { postStatus, preStatus, optionsView, viewingPost, dailyCountError } from '$lib/store';
 	import { _ } from '$lib/services/i18n';
 </script>
 
 <div class="menu-container options-container">
 	<div class="options-scroll">
-		{#if $viewingPost}
+		{#if $viewingPost && !$dailyCountError}
 			{#if $postStatus === 'show' || $postStatus === 'loading'}
 				<WeatherResults isPreview={true} isPost={true} />
 			{/if}

@@ -16,7 +16,12 @@ options.subscribe((value) => {
 });
 
 // Language preference
-export const language = writable('');
+export const language = writable(JSON.parse(localStorage.getItem('storedLanguage')) || '');
+language.subscribe((value) => {
+	if (browser) {
+		localStorage.storedLanguage = JSON.stringify(value);
+	}
+});
 export const languageChange = writable(Date.now());
 
 // Daily request count

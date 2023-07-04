@@ -7,6 +7,7 @@ import * as Sentry from '@sentry/sveltekit';
 
 export default async function postGetWeather({ fetch, request, cookies }) {
 	const lang = cookies.get('lang');
+	console.log('LANG FROM COOKIE', lang);
 	const data = await request.formData();
 	const checklistId = data.get('checklistId');
 
@@ -44,7 +45,7 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 			start: null,
 			end: null
 		},
-		language: 'en',
+		language: lang,
 		timeZoneOffset: null
 	};
 
@@ -74,7 +75,7 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 	dayjsTimes = checklistResponse.dayjsTimes;
 
 	// ---- Get timezone offset ----
-	dayjsTimes = await getTimezoneOffset(postWeather, dayjsTimes, lang, fetch);
+	dayjsTimes = await getTimezoneOffset(postWeather, dayjsTimes, fetch);
 	// if (dayjsTimes.error) return { postError: dayjsTimes.error }; // Return errors if they exist
 	if (dayjsTimes.error) {
 		return fail(400, {
@@ -87,7 +88,7 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 	dayjsTimes = appendCalculatedUtcTimes(dayjsTimes); // Append UTC Unix Times
 
 	// ---- Query weather ----
-	postWeather.weatherResults = await getWeatherForStartAndEnd(postWeather, dayjsTimes, lang, fetch);
+	postWeather.weatherResults = await getWeatherForStartAndEnd(postWeather, dayjsTimes, fetch);
 	// if (postWeather.weatherResults.error) return { postError: postWeather.weatherResults.error }; // Return errors if they exist
 	if (postWeather.weatherResults.error) {
 		return fail(400, {
