@@ -4,7 +4,7 @@ import { PUBLIC_USE_MOCK_API } from '$env/static/public';
 
 Sentry.init({
 	dsn: 'https://431781bc3e3b4976b9613de3985fb110@o4505457000120320.ingest.sentry.io/4505457003266048',
-	tracesSampleRate: 1
+	enabled: process.env.NODE_ENV !== 'development'
 });
 
 const useMock = PUBLIC_USE_MOCK_API === 'TRUE' ? true : false;
