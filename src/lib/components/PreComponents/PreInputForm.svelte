@@ -55,12 +55,13 @@
 			if (result.type === 'failure') {
 				$preStatus = 'error';
 				// render error text
-				$preErrorText = 'Server error: check ';
-				result.data.errors.forEach((error) => {
-					$preFormValidationErrors[error] = true;
-					$preErrorText += error + ', ';
-				});
-				$preErrorText = $preErrorText.slice(0, $preErrorText.length - 2);
+				$preErrorText = $_('error.general_server_error');
+				if (result.data.errors?.length > 0) {
+					result.data.errors.forEach((error) => {
+						$preFormValidationErrors[error] = true;
+					});
+				}
+				console.error(result.data.type, '-', result.data.message);
 
 				// restore inputs
 				$preFormInput = {

@@ -6,7 +6,7 @@
       "text" : "Pour aider à prévenir les temps d'indisponibilité de RainCrow, chaque utilisateur a une limite de 5 demandes météo toutes les 12 heures.",
       "title" : "Limite quotidienne"
     },
-    "email_me" : "Si vous avez des commentaires, suggestions ou bugs, vous pouvez me contacter à l'adresse <a href=\"mailto:parker@birdsmakesound.com\">parker@birdsmakesound.com</a>!",
+    "email_me" : "Si vous avez des commentaires ou suggestions, vous pouvez me contacter à l'adresse <a href=\"mailto:parker@birdsmakesound.com\">parker@birdsmakesound.com</a>!",
     "error_429" : {
       "text" : "Si vous obtenez une erreur avec le code 429, ça veut dire que j'ai atteint ma limite d'appels gratuits de l'API OpenWeather pour la journée. Je travaille sur une solution pour régler le problème. Désolé des inconvénients, réessayez demain!",
       "title" : "Vous obtenez une erreur 429?"
@@ -51,6 +51,9 @@
     "error" : "Vous avez atteint votre limite de demandes météo pour la journée.",
     "remaining" : "Demandes quotidiennes restantes:",
     "try_again" : "Réessayer"
+  },
+  "error" : {
+    "general_server_error" : "Erreur lors de l'obtention des données du serveur"
   },
   "global_ui" : {
     "close" : "Fermer",

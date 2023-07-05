@@ -54,8 +54,11 @@
 				if (result.data.type === 'checklistValidate') {
 					$postErrorText = $_('submitted.invalid_checklist_id');
 				} else {
-					$postErrorText = $_(result.data.message);
+					$postErrorText = $_('error.general_server_error');
 				}
+				console.error(result.data.type, '-', result.data.message);
+
+				// restore input
 				$postChecklistId = result.data.checklistId;
 				return;
 			}

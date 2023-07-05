@@ -6,7 +6,7 @@
       "text" : "To help prevent RainCrow downtime there is a limit of 5 weather requests per user every 12 hours.",
       "title" : "Daily Limits"
     },
-    "email_me" : "If you have any comments, suggestions, bugs, feel free to email me at <a href=\"mailto:parker@birdsmakesound.com\">parker@birdsmakesound.com</a>!",
+    "email_me" : "If you have any comments or suggestions, feel free to email me at <a href=\"mailto:parker@birdsmakesound.com\">parker@birdsmakesound.com</a>!",
     "error_429" : {
       "text" : "If you get a error with code 429, it means that I've reached my limit of free OpenWeather API calls for the day. I'm working on a solution for this. Sorry, try again tomorrow!",
       "title" : "429 Error?"
@@ -51,6 +51,9 @@
     "error" : "You have reached your limit of weather requests for the day.",
     "remaining" : "Remaining daily requests:",
     "try_again" : "Try again"
+  },
+  "error" : {
+    "general_server_error" : "Error getting data from the server"
   },
   "global_ui" : {
     "close" : "Close",

@@ -45,8 +45,6 @@ export default async function preGetWeather({ fetch, request, cookies }) {
 
 	// ---- Server-side form validation ----
 	let errorObj = {
-		error: true,
-		view: 'pre',
 		errors: [],
 		latlon,
 		date,
@@ -73,12 +71,26 @@ export default async function preGetWeather({ fetch, request, cookies }) {
 
 	// ---- Get timezone offset ----
 	dayjsTimes = await getTimezoneOffset(preWeather, dayjsTimes, fetch);
-	if (dayjsTimes.error) return { preError: dayjsTimes.error };
+	// if (dayjsTimes.error) return { preError: dayjsTimes.error };
+	if (dayjsTimes.error) {
+		return fail(400, {
+			...errorObj,
+			type: 'Timezone Offset Error',
+			message: dayjsTimes.error
+		});
+	}
 	dayjsTimes = appendCalculatedUtcTimes(dayjsTimes);
 
 	// ---- Query weather ----
 	preWeather.weatherResults = await getWeatherForStartAndEnd(preWeather, dayjsTimes, fetch);
-	if (preWeather.weatherResults.error) return { preError: preWeather.weatherResults.error };
+	// if (preWeather.weatherResults.error) return { preError: preWeather.weatherResults.error };
+	if (preWeather.weatherResults.error) {
+		return fail(400, {
+			...errorObj,
+			type: 'GetWeatherForStartAndEnd error',
+			message: preWeather.weatherResults.error
+		});
+	}
 
 	// ---- Append offset to preWeather ----
 	preWeather.timeZoneOffset = dayjsTimes.offset;

@@ -6,7 +6,7 @@
       "text" : "Para evitar que RainCrow deje de funcionar temporalmente, hay un límite de cinco solicitudes meteorológicas por usuario cada doce horas.",
       "title" : "Límites diarios"
     },
-    "email_me" : "Si desea comunicar algún comentario, sugerencia, bug, etc., por favor, no dude en escribirme a  <a href=\"mailto:parker@birdsmakesound.com\">parker@birdsmakesound.com</a>",
+    "email_me" : "Si desea comunicar algún comentario o sugerencia, por favor, no dude en escribirme a  <a href=\"mailto:parker@birdsmakesound.com\">parker@birdsmakesound.com</a>",
     "error_429" : {
       "text" : "Si le aparece un mensaje con el código de error 429, se debe a que se ha llegado al límite que la aplicación OpenWeather me ha concedido para ese día. Estoy tratando de solucionar este asunto. Disculpe las molestias e inténtelo pasadas unas horas.",
       "title" : "¿Error 429?"
@@ -51,6 +51,9 @@
     "error" : "Ha llegado al límite diario de solicitudes.",
     "remaining" : "Solicitudes diarias restantes:",
     "try_again" : "Inténtelo de nuevo"
+  },
+  "error" : {
+    "general_server_error" : "Error al obtener datos del servidor"
   },
   "global_ui" : {
     "close" : "Cerrar",
