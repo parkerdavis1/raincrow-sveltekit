@@ -5,7 +5,13 @@ import jsonServer from 'vite-plugin-simple-json-server';
 
 export default defineConfig({
 	plugins: [
-		sentrySvelteKit(),
+		sentrySvelteKit({
+			sourceMapsUploadOptions: {
+				org: 'raincrow-qyu',
+				project: 'raincrow',
+				authToken: process.env.SENTRY_AUTH_TOKEN
+			}
+		}),
 		sveltekit(),
 		jsonServer({
 			mockDir: 'src/mock',
