@@ -23,7 +23,7 @@
 	<link rel="apple-touch-icon" href="https://raincrow.netlify.app/raincrow-apple-touch.jpg" /> -->
 	<meta property="og:image" content="raincrow.jpg" />
 	<meta name="twitter:image" content="raincrow.jpg" />
-	<link rel="apple-touch-icon" href="raincrow-apple-touch.jpg" />
+	<!-- <link rel="apple-touch-icon" href="raincrow-apple-touch.jpg" /> -->
 
 	<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
 	<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png" />
