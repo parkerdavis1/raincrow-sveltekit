@@ -32,6 +32,11 @@
 	<link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5" />
 	<meta name="msapplication-TileColor" content="#da532c" />
 	<meta name="theme-color" content="#ffffff" />
+	<script
+		defer
+		data-domain="raincrow.netlify.app"
+		src="https://plausible.parkerdavis.dev/js/script.js"
+	></script>
 </svelte:head>
 
 <div id="app">
