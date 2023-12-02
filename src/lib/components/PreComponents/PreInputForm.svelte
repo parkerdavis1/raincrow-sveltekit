@@ -1,6 +1,5 @@
 <script>
 	import { enhance, applyAction } from '$app/forms';
-	import { onMount } from 'svelte';
 	import { _ } from '$lib/services/i18n';
 	import dayjs from '$lib/services/dayjsExtended';
 	import { parseWeather } from '$lib/services/weather/parseWeather';
@@ -15,9 +14,7 @@
 	// Stores
 	import {
 		preStatus,
-		dailyCount,
 		dailyCountError,
-		language,
 		languageChange,
 		preParsedWeather,
 		preErrorText,

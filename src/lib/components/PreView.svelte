@@ -1,20 +1,7 @@
 <script>
 	// Components
-	import WeatherResults from '$lib/components/WeatherResults.svelte';
-	import DailyRequestPane from '$lib/components/DailyRequestPane.svelte';
-	import CopyButton from '$lib/components/CopyButton.svelte';
 	import PreInputForm from '$lib/components/PreComponents/PreInputForm.svelte';
 	import ResultsPane from '$lib/components/ResultsPane.svelte';
-
-	// Stores
-	import {
-		preParsedWeather,
-		preStatus,
-		language,
-		dailyCount,
-		dailyCountError,
-		preErrorText
-	} from '$lib/store';
 
 	// Services
 	import { _ } from '$lib/services/i18n';

@@ -1,8 +1,5 @@
 <script>
 	import { enhance, applyAction } from '$app/forms';
-	import { dev } from '$app/environment';
-	// import { onMount } from 'svelte';
-	// import { browser } from '$app/environment';
 	import { _ } from '$lib/services/i18n';
 	import {
 		postStatus,
@@ -10,24 +7,14 @@
 		postChecklistInfo,
 		postErrorText,
 		dailyCountError,
-		language,
 		languageChange,
-		postParsedWeather,
-		dailyCount
+		postParsedWeather
 	} from '$lib/store';
 	import { validateChecklistId } from '$lib/services/validation';
+	import { incrementDailyCount } from '$lib/services/incrementDailyCount';
 
 	import { parseWeather } from '$lib/services/weather/parseWeather';
 	$: isChecklistId = validateChecklistId($postChecklistId);
-
-	function incrementDailyCount() {
-		if (!dev) {
-			let count = parseInt($dailyCount);
-			count += 1;
-			$dailyCount = count.toString();
-			console.log('$dailyCount: ', $dailyCount);
-		}
-	}
 
 	// When language changes, resubmit form to get weather in correct language
 	let submitButton;
@@ -43,6 +30,7 @@
 
 	const submitFunction = ({ formElement, formData, action, cancel, submitter }) => {
 		if (!isChecklistId || $dailyCountError) {
+			console.log('Not calling API');
 			cancel(); // if not valid checklist, or exceeded daily count limit, don't call any APIs
 			return;
 		}

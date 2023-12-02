@@ -2,7 +2,6 @@
 	import { options } from '$lib/store';
 	import { _ } from '$lib/services/i18n';
 	import LocaleSwitcher from '$lib/components/LocaleSwitcher.svelte';
-	import { language } from '$lib/store';
 </script>
 
 <div class="options-list">

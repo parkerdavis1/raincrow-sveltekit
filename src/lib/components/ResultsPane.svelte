@@ -10,31 +10,52 @@
 </script>
 
 <div class="full-width">
-	{#if !$dailyCountError}
+	{#if isPost}
 		<div
 			class="weather-center weatherDisp"
 			data-testid="weatherResultsPane"
-			class:error-pane={isPost ? $postStatus === 'error' : $preStatus === 'error'}
+			class:error-pane={$postStatus === 'error' || ($postStatus === 'init' && $dailyCountError)}
 		>
 			<div>
-				{#if isPost && $postStatus === 'init'}
+				{#if $postStatus === 'init' && $dailyCountError}
+					<DailyRequestPane />
+				{:else if $postStatus === 'init'}
 					<p>{$_('submitted.help')}</p>
-				{:else if !isPost && $preStatus === 'init'}
-					<p>{$_('pre_submit.location_service_error')}</p>
-				{:else if isPost ? $postStatus === 'loading' : $preStatus === 'loading'}
-					<div class="loading-text">{$_('global_ui.loading')}</div>
-				{:else if isPost ? $postStatus === 'error' : $preStatus === 'error'}
-					{isPost ? $postErrorText : $preErrorText}
-				{:else if isPost ? $postStatus === 'show' : $preStatus === 'show'}
+				{:else if $postStatus === 'loading'}
+					<p class="loading-text">{$_('global_ui.loading')}</p>
+				{:else if $postStatus === 'error'}
+					<p>{$postErrorText}</p>
+				{:else if $postStatus === 'show'}
 					<WeatherResults {isPost} isPreview={false} />
 				{/if}
 			</div>
-			{#if isPost ? $postStatus === 'show' : $preStatus === 'show'}
+			{#if $postStatus === 'show'}
 				<CopyButton {isPost} />
 			{/if}
 		</div>
 	{:else}
-		<DailyRequestPane />
+		<div
+			class="weather-center weatherDisp"
+			data-testid="weatherResultsPane"
+			class:error-pane={$preStatus === 'error' || ($preStatus === 'init' && $dailyCountError)}
+		>
+			<div>
+				{#if $preStatus === 'init' && $dailyCountError}
+					<DailyRequestPane />
+				{:else if $preStatus === 'init'}
+					<p>{$_('submitted.help')}</p>
+				{:else if $preStatus === 'loading'}
+					<p class="loading-text">{$_('global_ui.loading')}</p>
+				{:else if $preStatus === 'error'}
+					<p>{$preErrorText}</p>
+				{:else if $preStatus === 'show'}
+					<WeatherResults {isPost} isPreview={false} />
+				{/if}
+			</div>
+			{#if $preStatus === 'show'}
+				<CopyButton {isPost} />
+			{/if}
+		</div>
 	{/if}
 </div>
 

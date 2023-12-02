@@ -5,8 +5,6 @@
 </script>
 
 <div class="menu-container">
-	<!-- <button class="menu-exit" on:click={()=> $aboutView = false}>🆇</button> -->
-
 	<div class="scroll">
 		<AboutContent />
 	</div>

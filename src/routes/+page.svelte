@@ -7,7 +7,6 @@
 	import PostView from '$lib/components/PostView.svelte';
 	import PreView from '$lib/components/PreView.svelte';
 	import AboutView from '$lib/components/AboutView.svelte';
-	import DailyRequestPane from '$lib/components/DailyRequestPane.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import OptionsView from '$lib/components/OptionsView.svelte';
@@ -16,14 +15,7 @@
 	import { _, setupI18n } from '$lib/services/i18n';
 
 	// Stores
-	import {
-		aboutView,
-		optionsView,
-		language,
-		dailyCountError,
-		viewingPost,
-		options
-	} from '$lib/store.js';
+	import { aboutView, optionsView, language, viewingPost } from '$lib/store.js';
 
 	// ---- LANGUAGE ----
 

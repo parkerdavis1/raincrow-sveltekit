@@ -17,33 +17,31 @@
 	$: remainingCount = 5 - $dailyCount;
 </script>
 
-<div class="daily-request-pane" class:error-pane={$dailyCountError}>
-	{#if $dailyCountError}
-		<p>{$_('daily_request.error')}</p>
-		<p>{$_('daily_request.try_again')} {displayTimeUntil}</p>
-	{:else}
-		<p>{$_('daily_request.remaining')} {remainingCount}</p>
-	{/if}
-</div>
+<!-- <div class="daily-request-pane" class:error-pane={$dailyCountError}> -->
+{#if $dailyCountError}
+	<p>{$_('daily_request.error')}</p>
+	<p>{$_('daily_request.try_again')} {displayTimeUntil}</p>
+{:else}
+	<p>{$_('daily_request.remaining')} {remainingCount}</p>
+{/if}
+
+<!-- </div> -->
 
 <style>
-	.daily-request-pane {
+	/* .daily-request-pane {
 		text-align: center;
 		width: fit-content;
 		height: fit-content;
 		color: var(--daily-request-text);
 		font-size: 0.9rem;
-		/* padding: 0 0.5rem; */
 		justify-self: end;
 		align-self: center;
 	}
 
-	p {
-		/* margin-top: 0.5rem; */
-		/* margin-bottom: 0.5rem; */
-	}
-
 	.error-pane {
 		color: var(--text-color);
+	} */
+	p {
+		text-align: center;
 	}
 </style>

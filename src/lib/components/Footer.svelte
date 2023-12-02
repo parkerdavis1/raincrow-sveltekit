@@ -4,6 +4,7 @@
 
 	import { optionsView, aboutView, dailyCountError } from '$lib/store';
 	import { _ } from '$lib/services/i18n';
+	import DailyRequestFooter from './DailyRequestFooter.svelte';
 
 	const toggleOptions = () => {
 		$optionsView = !$optionsView;
@@ -19,13 +20,9 @@
 		<button class="about-button" on:click={toggleAbout}>{$_('nav.about')}</button>
 	</div>
 	<div>
-		{#if !$dailyCountError}
-			<DailyRequestPane />
-		{/if}
+		<DailyRequestFooter />
 	</div>
 	<div class="options-container">
-		<!-- <button on:click={toggleOptions}>{$_('nav.options')}</button>
-        <LocaleSwitcher value={$language}/> -->
 		<button
 			aria-label="Options Button"
 			title="Options"
