@@ -13,34 +13,12 @@
 	}
 
 	const timeUntilDailyCountExpiration = JSON.parse(localStorage.getItem('dailyCount')).expiry;
-
-	$: remainingCount = 5 - $dailyCount;
 </script>
 
-<!-- <div class="daily-request-pane" class:error-pane={$dailyCountError}> -->
-{#if $dailyCountError}
-	<p>{$_('daily_request.error')}</p>
-	<p>{$_('daily_request.try_again')} {displayTimeUntil}</p>
-{:else}
-	<p>{$_('daily_request.remaining')} {remainingCount}</p>
-{/if}
-
-<!-- </div> -->
+<p>{$_('daily_request.error')}</p>
+<p>{$_('daily_request.try_again')} {displayTimeUntil}</p>
 
 <style>
-	/* .daily-request-pane {
-		text-align: center;
-		width: fit-content;
-		height: fit-content;
-		color: var(--daily-request-text);
-		font-size: 0.9rem;
-		justify-self: end;
-		align-self: center;
-	}
-
-	.error-pane {
-		color: var(--text-color);
-	} */
 	p {
 		text-align: center;
 	}
