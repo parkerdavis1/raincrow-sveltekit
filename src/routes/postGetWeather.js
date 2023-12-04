@@ -78,6 +78,8 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 	if (dayjsTimes.end.localTime) {
 		dayjsTimes.end.unixTime = dayjsTimes.end.localTime.tz(tz).unix();
 	}
+	// ---- Append offset to postWeather ----
+	postWeather.timeZoneOffset = dayjsTimes.start.localTime.tz(tz).utcOffset();
 
 	// ---- Query weather ----
 	postWeather.weatherResults = await getWeatherForStartAndEnd(postWeather, dayjsTimes, fetch);
@@ -89,9 +91,6 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 			checklistId
 		});
 	}
-
-	// ---- Append offset to postWeather ----
-	postWeather.timeZoneOffset = dayjsTimes.start.localTime.tz(tz).utcOffset();
 
 	return { postWeather };
 }
