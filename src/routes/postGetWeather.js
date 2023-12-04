@@ -71,15 +71,20 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 	postWeather.checklistInfo = checklistResponse.checklistInfo;
 	postWeather.location = checklistResponse.location;
 	dayjsTimes = checklistResponse.dayjsTimes;
+	console.log('postWeather', postWeather);
+	console.log('dayjsTimes', dayjsTimes);
 
 	// ---- Get unixtime from timezone ----
 	const tz = find(postWeather.location.lat, postWeather.location.lon);
+	console.log('timezone', tz);
 	dayjsTimes.start.unixTime = dayjsTimes.start.localTime.tz(tz).unix();
 	if (dayjsTimes.end.localTime) {
 		dayjsTimes.end.unixTime = dayjsTimes.end.localTime.tz(tz).unix();
 	}
+	console.log('unixTimes included', dayjsTimes);
 	// ---- Append offset to postWeather ----
 	postWeather.timeZoneOffset = dayjsTimes.start.localTime.tz(tz).utcOffset();
+	console.log('timezoneOffset', postWeather.timeZoneOffset);
 
 	// ---- Query weather ----
 	postWeather.weatherResults = await getWeatherForStartAndEnd(postWeather, dayjsTimes, fetch);
@@ -91,6 +96,7 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 			checklistId
 		});
 	}
+	console.log('postWeather', postWeather);
 
 	return { postWeather };
 }
