@@ -1,5 +1,4 @@
-import { getTimezoneOffset, getWeatherForStartAndEnd } from '$lib/services/weather/openWeather';
-import { appendCalculatedUtcTimes } from '$lib/services/weather/appendCalculatedUtcTimes';
+import { getWeatherForStartAndEnd } from '$lib/services/weather/openWeather';
 import { parseLatlon } from '$lib/services/parseLatlon';
 import dayjs from '$lib/services/dayjsExtended';
 import { fail } from '@sveltejs/kit';
@@ -9,6 +8,7 @@ import {
 	validateStartTime,
 	validateDuration
 } from '$lib/services/validation';
+import { find } from 'geo-tz';
 
 export default async function preGetWeather({ fetch, request, cookies }) {
 	const lang = cookies.get('lang');
@@ -22,11 +22,11 @@ export default async function preGetWeather({ fetch, request, cookies }) {
 		offset: 0,
 		start: {
 			localTime: null,
-			utcTime: null
+			unixTime: null
 		},
 		end: {
 			localTime: null,
-			utcTime: null
+			unixTime: null
 		}
 	};
 
@@ -69,21 +69,15 @@ export default async function preGetWeather({ fetch, request, cookies }) {
 	dayjsTimes.start.localTime = dayjs(`${date} ${startTime}`, 'YYYY-MM-DD HH:mm');
 	dayjsTimes.end.localTime = dayjs(dayjsTimes.start.localTime).add(duration, 'minute');
 
-	// ---- Get timezone offset ----
-	dayjsTimes = await getTimezoneOffset(preWeather, dayjsTimes, fetch);
-	// if (dayjsTimes.error) return { preError: dayjsTimes.error };
-	if (dayjsTimes.error) {
-		return fail(400, {
-			...errorObj,
-			type: 'Timezone Offset Error',
-			message: dayjsTimes.error
-		});
+	// ---- Get unixtime from timezone ----
+	const tz = find(preWeather.location.lat, preWeather.location.lon);
+	dayjsTimes.start.unixTime = dayjsTimes.start.localTime.tz(tz).unix();
+	if (dayjsTimes.end.localTime) {
+		dayjsTimes.end.unixTime = dayjsTimes.end.localTime.tz(tz).unix();
 	}
-	dayjsTimes = appendCalculatedUtcTimes(dayjsTimes);
 
 	// ---- Query weather ----
 	preWeather.weatherResults = await getWeatherForStartAndEnd(preWeather, dayjsTimes, fetch);
-	// if (preWeather.weatherResults.error) return { preError: preWeather.weatherResults.error };
 	if (preWeather.weatherResults.error) {
 		return fail(400, {
 			...errorObj,
@@ -93,7 +87,7 @@ export default async function preGetWeather({ fetch, request, cookies }) {
 	}
 
 	// ---- Append offset to preWeather ----
-	preWeather.timeZoneOffset = dayjsTimes.offset;
+	preWeather.timeZoneOffset = dayjsTimes.start.localTime.tz(tz).utcOffset();
 
 	return { preWeather };
 }

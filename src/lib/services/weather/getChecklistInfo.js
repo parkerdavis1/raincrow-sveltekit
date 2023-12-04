@@ -22,11 +22,11 @@ export async function getChecklistInfo(checklistId, fetch) {
 		offset: 0,
 		start: {
 			localTime: null,
-			utcTime: null
+			unixTime: null
 		},
 		end: {
 			localTime: null,
-			utcTime: null
+			unixTime: null
 		}
 	};
 

@@ -1,8 +1,8 @@
 import { getChecklistInfo } from '$lib/services/weather/getChecklistInfo';
-import { getTimezoneOffset, getWeatherForStartAndEnd } from '$lib/services/weather/openWeather';
-import { appendCalculatedUtcTimes } from '$lib/services/weather/appendCalculatedUtcTimes';
+import { getWeatherForStartAndEnd } from '$lib/services/weather/openWeather';
 import { validateChecklistId } from '$lib/services/validation';
 import { fail } from '@sveltejs/kit';
+import { find } from 'geo-tz';
 
 export default async function postGetWeather({ fetch, request, cookies }) {
 	const lang = cookies.get('lang');
@@ -16,11 +16,11 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 		offset: 0,
 		start: {
 			localTime: null,
-			utcTime: null
+			unixTime: null
 		},
 		end: {
 			localTime: null,
-			utcTime: null
+			unixTime: null
 		}
 	};
 
@@ -72,18 +72,12 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 	postWeather.location = checklistResponse.location;
 	dayjsTimes = checklistResponse.dayjsTimes;
 
-	// ---- Get timezone offset ----
-	dayjsTimes = await getTimezoneOffset(postWeather, dayjsTimes, fetch);
-	// if (dayjsTimes.error) return { postError: dayjsTimes.error }; // Return errors if they exist
-	if (dayjsTimes.error) {
-		return fail(400, {
-			type: 'openweatherResponse',
-			message: dayjsTimes.error,
-			checklistId
-		});
+	// ---- Get unixtime from timezone ----
+	const tz = find(postWeather.location.lat, postWeather.location.lon);
+	dayjsTimes.start.unixTime = dayjsTimes.start.localTime.tz(tz).unix();
+	if (dayjsTimes.end.localTime) {
+		dayjsTimes.end.unixTime = dayjsTimes.end.localTime.tz(tz).unix();
 	}
-
-	dayjsTimes = appendCalculatedUtcTimes(dayjsTimes); // Append UTC Unix Times
 
 	// ---- Query weather ----
 	postWeather.weatherResults = await getWeatherForStartAndEnd(postWeather, dayjsTimes, fetch);
@@ -97,7 +91,7 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 	}
 
 	// ---- Append offset to postWeather ----
-	postWeather.timeZoneOffset = dayjsTimes.offset;
+	postWeather.timeZoneOffset = dayjsTimes.start.localTime.tz(tz).utcOffset();
 
 	return { postWeather };
 }
