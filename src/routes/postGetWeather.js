@@ -77,13 +77,13 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 	// ---- Get unixtime from timezone ----
 	const tz = find(postWeather.location.lat, postWeather.location.lon);
 	console.log('timezone', tz);
-	dayjsTimes.start.unixTime = dayjsTimes.start.localTime.tz(tz).unix();
+	dayjsTimes.start.unixTime = dayjsTimes.start.localTime.tz(tz, true).unix();
 	if (dayjsTimes.end.localTime) {
-		dayjsTimes.end.unixTime = dayjsTimes.end.localTime.tz(tz).unix();
+		dayjsTimes.end.unixTime = dayjsTimes.end.localTime.tz(tz, true).unix();
 	}
 	console.log('unixTimes included', dayjsTimes);
 	// ---- Append offset to postWeather ----
-	postWeather.timeZoneOffset = dayjsTimes.start.localTime.tz(tz).utcOffset();
+	postWeather.timeZoneOffset = dayjsTimes.start.localTime.tz(tz, true).utcOffset();
 	console.log('timezoneOffset', postWeather.timeZoneOffset);
 
 	// ---- Query weather ----

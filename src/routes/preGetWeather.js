@@ -71,13 +71,13 @@ export default async function preGetWeather({ fetch, request, cookies }) {
 
 	// ---- Get unixtime from timezone ----
 	const tz = find(preWeather.location.lat, preWeather.location.lon);
-	dayjsTimes.start.unixTime = dayjsTimes.start.localTime.tz(tz).unix();
+	dayjsTimes.start.unixTime = dayjsTimes.start.localTime.tz(tz, true).unix();
 	if (dayjsTimes.end.localTime) {
-		dayjsTimes.end.unixTime = dayjsTimes.end.localTime.tz(tz).unix();
+		dayjsTimes.end.unixTime = dayjsTimes.end.localTime.tz(tz, true).unix();
 	}
 
 	// ---- Append offset to preWeather ----
-	preWeather.timeZoneOffset = dayjsTimes.start.localTime.tz(tz).utcOffset();
+	preWeather.timeZoneOffset = dayjsTimes.start.localTime.tz(tz, true).utcOffset();
 
 	// ---- Query weather ----
 	preWeather.weatherResults = await getWeatherForStartAndEnd(preWeather, dayjsTimes, fetch);
