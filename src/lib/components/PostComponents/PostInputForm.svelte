@@ -41,6 +41,9 @@
 				$postStatus = 'error';
 				if (result.data.type === 'checklistValidate') {
 					$postErrorText = $_('submitted.invalid_checklist_id');
+				} else if (result.data.type === 'openweatherResponse') {
+					console.log('result', result);
+					$postErrorText = result.data.message;
 				} else {
 					$postErrorText = $_('error.general_server_error');
 				}

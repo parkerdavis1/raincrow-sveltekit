@@ -24,6 +24,12 @@ export async function handleFetch({ request, fetch }) {
 		}
 		if (request.url.startsWith('https://api.openweathermap.org')) {
 			return fetch('/api/weather'); // for normal requests
+
+			// return new Response('Error 429 - Too Many Requests', {
+			// 	status: 429,
+			// 	statusText: 'Error 429 - Too Many Requests'
+			// });
+
 			// return fetch('/api/error'); // for errors
 			// return fetch('/api/testweather');
 		}

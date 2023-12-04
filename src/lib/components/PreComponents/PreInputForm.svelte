@@ -50,9 +50,17 @@
 
 		return async ({ update, result }) => {
 			if (result.type === 'failure') {
-				$preStatus = 'error';
 				// render error text
-				$preErrorText = $_('error.general_server_error');
+				if (
+					result.data.type === 'Timezone Offset Error' ||
+					result.data.type === 'GetWeatherForStartAndEnd error'
+				) {
+					$preErrorText = result.data.message;
+				} else {
+					$preErrorText = $_('error.general_server_error');
+				}
+
+				$preStatus = 'error';
 				if (result.data.errors?.length > 0) {
 					result.data.errors.forEach((error) => {
 						$preFormValidationErrors[error] = true;
