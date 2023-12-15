@@ -29,7 +29,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@sentry/sveltekit": "^7.79.0",
+		"@sentry/sveltekit": "^7.85.0",
 		"dayjs": "^1.11.8",
 		"geo-tz": "^7.0.7",
 		"svelte-i18n": "^3.6.0"

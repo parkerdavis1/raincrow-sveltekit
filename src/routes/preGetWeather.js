@@ -76,9 +76,6 @@ export default async function preGetWeather({ fetch, request, cookies }) {
 		dayjsTimes.end.unixTime = dayjsTimes.end.localTime.tz(tz, true).unix();
 	}
 
-	// ---- Append offset to preWeather ----
-	preWeather.timeZoneOffset = dayjsTimes.start.localTime.tz(tz, true).utcOffset();
-
 	// ---- Query weather ----
 	preWeather.weatherResults = await getWeatherForStartAndEnd(preWeather, dayjsTimes, fetch);
 	if (preWeather.weatherResults.error) {

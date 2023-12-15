@@ -57,9 +57,9 @@ export function parseWeather({ weatherResults, timeZoneOffset }) {
 	// PRESSURE
 	parsedWeather.pressure = parsePressure(weatherResults);
 	// SUNRISE
-	parsedWeather.sunrise = parseSunrise(weatherResults, timeZoneOffset);
+	parsedWeather.sunrise = parseSunrise(weatherResults);
 	// SUNSET
-	parsedWeather.sunset = parseSunset(weatherResults, timeZoneOffset);
+	parsedWeather.sunset = parseSunset(weatherResults);
 
 	return parsedWeather;
 }
