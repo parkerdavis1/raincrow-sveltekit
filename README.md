@@ -4,7 +4,7 @@
 
 This web app was created for the quick retrieval of historical weather observations for eBird checklists.
 
-You can read about it here: [https://parkerdavis.dev/projects/ebird-weather/](https://parkerdavis.dev/projects/ebird-weather/)
+You can read about it here: [https://parkerdavis.dev/projects/raincrow/](https://parkerdavis.dev/projects/raincrow/)
 
 or here: [https://birdsmakesound.com/blog/raincrow/](https://birdsmakesound.com/blog/raincrow/)
 
