@@ -8,10 +8,10 @@
 
 	<title>RainCrow | eBird weather</title>
 	<meta name="description" content="Weather for any eBird checklist" />
-	<link rel="canonical" href="https://raincrow.netlify.app" />
+	<link rel="canonical" href="https://raincrow.app" />
 	<meta name="robots" content="index, follow" />
 	<meta property="og:title" content="RainCrow | eBird Weather" />
-	<meta property="og:url" content="https://raincrow.netlify.app" />
+	<meta property="og:url" content="https://raincrow.app" />
 	<meta property="og:description" content="Weather for any eBird checklist" />
 	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary" />
@@ -34,7 +34,7 @@
 	<meta name="theme-color" content="#ffffff" />
 	<script
 		defer
-		data-domain="raincrow.netlify.app"
+		data-domain="raincrow.app"
 		src="https://plausible.parkerdavis.dev/js/script.js"
 	></script>
 </svelte:head>
