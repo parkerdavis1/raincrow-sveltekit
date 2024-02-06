@@ -1,6 +1,6 @@
-# [RainCrow](https://raincrow.netlify.app/)
+# [RainCrow](https://raincrow.app/)
 
-[See it live](https://raincrow.netlify.app/)
+[See it live](https://raincrow.app/)
 
 This web app was created for the quick retrieval of historical weather observations for eBird checklists.
 
