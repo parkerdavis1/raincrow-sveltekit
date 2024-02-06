@@ -1,7 +1,7 @@
 import { sentrySvelteKit } from '@sentry/sveltekit';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vitest/config';
-import jsonServer from 'vite-plugin-simple-json-server';
+// import jsonServer from 'vite-plugin-simple-json-server';
 
 export default defineConfig({
 	plugins: [
@@ -13,10 +13,10 @@ export default defineConfig({
 			}
 		}),
 		sveltekit(),
-		jsonServer({
-			mockDir: 'src/mock',
-			delay: 300
-		})
+		// jsonServer({
+		// 	mockDir: 'src/mock',
+		// 	delay: 300
+		// })
 	],
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']

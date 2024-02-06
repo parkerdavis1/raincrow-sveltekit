@@ -121,7 +121,7 @@
       "south_west" : "SO",
       "west" : "O"
     },
-    "generated_by" : "Datos generados por <a href=\"https://raincrow.netlify.app/\" target=\"_blank\">RainCrow</a>",
+    "generated_by" : "Datos generados por <a href=\"https://raincrow.app/\" target=\"_blank\">RainCrow</a>",
     "humidity" : "Humedad",
     "pressure" : "Presión",
     "sunrise" : "Salida del sol",

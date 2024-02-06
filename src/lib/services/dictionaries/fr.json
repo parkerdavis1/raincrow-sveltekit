@@ -121,7 +121,7 @@
       "south_west" : "SO",
       "west" : "O"
     },
-    "generated_by" : "Météo générée par <a href=\"https://raincrow.netlify.app/\" target=\"_blank\">RainCrow</a>",
+    "generated_by" : "Météo générée par <a href=\"https://raincrow.app/\" target=\"_blank\">RainCrow</a>",
     "humidity" : "Humidité",
     "pressure" : "Pression",
     "sunrise" : "Lever du soleil",
