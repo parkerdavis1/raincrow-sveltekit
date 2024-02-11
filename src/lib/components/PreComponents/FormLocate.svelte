@@ -50,7 +50,11 @@
 			console.log(position.coords);
 			$preFormInput.latlon = `${position.coords.latitude},${position.coords.longitude}`;
 		};
-		await navigator.geolocation.getCurrentPosition(success, error, options);
+		try {
+			await navigator.geolocation.getCurrentPosition(success, error, options);
+		} catch (error) {
+			console.error(error);
+		}
 	};
 </script>
 
@@ -81,7 +85,8 @@
 </button>
 {#if locateError.error}
 	<span class="locate-error">
-		{#if locateError.code === 1}{$_('pre_submit.locate_error')} {/if}({locateError.message})
+		{#if locateError.code === 1}{$_('pre_submit.locate_error')}
+		{/if}({locateError.message})
 	</span>
 {/if}
 

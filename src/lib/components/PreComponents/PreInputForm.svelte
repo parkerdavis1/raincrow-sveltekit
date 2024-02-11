@@ -52,7 +52,7 @@
 			if (result.type === 'failure') {
 				// render error text
 				if (
-					result.data.type === 'Timezone Offset Error' ||
+					result.data.type === 'timezoneOffsetError' ||
 					result.data.type === 'GetWeatherForStartAndEnd error'
 				) {
 					$preErrorText = result.data.message;

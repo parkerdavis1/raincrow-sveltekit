@@ -4,6 +4,9 @@ const config = {
 		command: 'npm run build && npm run preview',
 		port: 4173
 	},
+	use: {
+		permissions: ['geolocation']
+	},
 	testDir: 'tests',
 	testMatch: /(.+\.)?(test|spec)\.[jt]s/
 };
