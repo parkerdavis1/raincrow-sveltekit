@@ -1,6 +1,15 @@
+import { parseLatlon } from './parseLatlon';
+
 export const validateLatlon = (latlon) => {
 	const latlonRegex = /\s*-?\d+\.\d+,\s*-?\d+\.\d+\s*/;
-	return latlon.match(latlonRegex) ? true : false;
+	const textFormatCheck = latlon.match(latlonRegex) ? true : false;
+	const { lat, lon } = parseLatlon(latlon);
+	const latNum = parseInt(lat);
+	const lonNum = parseInt(lon);
+	const latNumCheck = latNum >= -90 && latNum <= 90;
+	const lonNumCheck = lonNum >= -180 && lonNum <= 180;
+
+	return textFormatCheck && latNumCheck && lonNumCheck;
 };
 
 export const validateDate = (date) => {
