@@ -75,13 +75,19 @@ export default async function postGetWeather({ fetch, request, cookies }) {
 	console.log('dayjsTimes', dayjsTimes);
 
 	// ---- Get unixtime from timezone ----
-	const tz = find(postWeather.location.lat, postWeather.location.lon);
-	console.log('timezone', tz);
+	let tz;
+	try {
+		tz = find(postWeather.location.lat, postWeather.location.lon);
+	} catch (error) {
+		return fail(400, {
+			type: 'timezoneOffsetError',
+			message: 'Error getting time zone for checklist coordinates'
+		});
+	}
 	dayjsTimes.start.unixTime = dayjsTimes.start.localTime.tz(tz, true).unix();
 	if (dayjsTimes.end.localTime) {
 		dayjsTimes.end.unixTime = dayjsTimes.end.localTime.tz(tz, true).unix();
 	}
-	console.log('unixTimes included', dayjsTimes);
 
 	// ---- Query weather ----
 	postWeather.weatherResults = await getWeatherForStartAndEnd(postWeather, dayjsTimes, fetch);

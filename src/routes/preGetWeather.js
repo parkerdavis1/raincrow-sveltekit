@@ -70,7 +70,16 @@ export default async function preGetWeather({ fetch, request, cookies }) {
 	dayjsTimes.end.localTime = dayjs(dayjsTimes.start.localTime).add(duration, 'minute');
 
 	// ---- Get unixtime from timezone ----
-	const tz = find(preWeather.location.lat, preWeather.location.lon);
+	let tz;
+	try {
+		tz = find(preWeather.location.lat, preWeather.location.lon);
+	} catch (error) {
+		return fail(400, {
+			...errorObj,
+			type: 'timezoneOffsetError',
+			message: 'Error getting time zone for given coordinates'
+		});
+	}
 	dayjsTimes.start.unixTime = dayjsTimes.start.localTime.tz(tz, true).unix();
 	if (dayjsTimes.end.localTime) {
 		dayjsTimes.end.unixTime = dayjsTimes.end.localTime.tz(tz, true).unix();
