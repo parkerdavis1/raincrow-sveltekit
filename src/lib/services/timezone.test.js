@@ -20,4 +20,7 @@ test('Timezone is able to be found with some edge case GPS coordinates', () => {
 	expect(find(43.298646833300026, -38.425597455498185)).toStrictEqual(['Etc/GMT+3']);
 	// CA/AZ border
 	expect(find(33.608429524254916, -114.53309086102836)).toStrictEqual(['America/Los_Angeles']);
+
+	// Add failing test
+	// expect(find(33.608429524254916, -114.53309086102836)).toStrictEqual(['America/Phoenix']);
 });
