@@ -30,7 +30,7 @@
 
 	const submitFunction = ({ formElement, formData, action, cancel, submitter }) => {
 		if (!isChecklistId || $dailyCountError) {
-			console.log('Not calling API');
+			console.warn('Not calling API');
 			cancel(); // if not valid checklist, or exceeded daily count limit, don't call any APIs
 			return;
 		}
