@@ -1,2 +1,2 @@
-https://raincrow.netlify.app/*    https://raincrow.app/*    301!
-http://raincrow.netlify.app/*    https://raincrow.app/*    301!
+https://raincrow.netlify.app/*    https://raincrow.app/:splat    301!
+http://raincrow.netlify.app/*    https://raincrow.app/:splat    301!
